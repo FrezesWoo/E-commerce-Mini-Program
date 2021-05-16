@@ -1,0 +1,15 @@
+<h1><%= t('douyin_customers.edit') %> </h1>
+
+<div class="container">
+  <div class='row'>
+    <%= render 'form', douyin_customer: @douyin_customer %>
+  </div>
+</div>
+
+<div class="container page-control">
+  <%= link_to t('back'), douyin_customers_path, class: 'back' %> |
+  <%= link_to raw("<i class='material-icons'>visibility</i><span>#{t('show')}</span>"), @douyin_customer %> |
+  <% if current_user.is_editor %>
+    <%= link_to raw("<i class='material-icons'>add_circle</i><span>#{t('new')}</span>"), new_douyin_customer_path, data: { 'no-turbolink' => true} %>
+  <% end %>
+</div>

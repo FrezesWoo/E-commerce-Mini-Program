@@ -1,0 +1,8 @@
+en:
+  orders:
+    title: Orders
+    sync: Sync
+    douyin_title: Douyin MP Orders
+    no_publish: No Publish
+    sample_quantity_limit: Order Sample Package Quantity Limit
+    sku_quantity_limit: Order Package Sku Quantity Limit

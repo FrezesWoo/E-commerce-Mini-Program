@@ -1,0 +1,14 @@
+<ul class="nav nav-pills nav-pills-icons sub-nav-products">
+    <li class="nav-item">
+        <a class="nav-link <%= is_current('tags') %>" href="/<%= I18n.locale %>/tags" aria-expanded="true">
+            <i class="material-icons">beenhere</i>
+            <%= t('tag.title') %>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link <%= is_current('articles') %>" href="/<%= I18n.locale %>/articles" aria-expanded="false">
+            <i class="material-icons">library_books</i>
+            <%= t('articles.title') %>
+        </a>
+    </li>
+</ul>

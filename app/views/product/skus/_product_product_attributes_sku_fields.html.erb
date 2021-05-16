@@ -1,0 +1,22 @@
+<div class="nested-fields row">
+
+  <div class="col-sm-3 form-group">
+    <%= f.label :product_attribute_category_id, t('skus.product_attribute.name') %>
+    <%= f.collection_select(:product_attribute_category_id, Product::ProductAttributeCategory.all, :id, :name, {}, {:class=>'form-control selectpicker', :dataStyle => "btn btn-link", :id => "exampleFormControlSelect1"} ) %>
+  </div>
+
+  <div class="col-sm-3 form-group">
+    <%= f.label :product_product_attribute_id, t('skus.product_attribute.name') %>
+    <%= f.collection_select(:product_product_attribute_id, Product::ProductAttribute.all, :id, :name, {}, {:class=>'form-control selectpicker', :dataStyle => "btn btn-link", :id => "exampleFormControlSelect1"} ) %>
+  </div>
+
+  <div class="col-sm-3 form-group">
+    <%= f.label :sorting, t('skus.product_attribute.order') %>
+    <%= f.number_field :sorting, class:"form-control"  %>
+  </div>
+
+  <div class="col-sm-3">
+    <%= link_to_remove_association raw("<i class='material-icons'>remove_circle</i><span>#{t('sku.attribute.remove')}</span>"), f, class: 'remove-icone-attribute-field' %>
+  </div>
+
+</div>

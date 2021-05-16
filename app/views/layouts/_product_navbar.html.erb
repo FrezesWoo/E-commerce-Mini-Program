@@ -1,0 +1,44 @@
+<ul class="nav nav-pills nav-pills-icons sub-nav-products">
+    <li class="nav-item">
+        <a class="nav-link <%= is_current('product_categories') %>" href="/<%= I18n.locale %>/product_categories" aria-expanded="true">
+            <i class="material-icons">category</i>
+            <%= t('product_categories.page_title') %>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link <%= is_current('products') %>" href="/<%= I18n.locale %>/products" aria-expanded="false">
+            <i class="material-icons">spa</i>
+            <%= t('products.page_title') %>
+        </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link <%= is_current('product_packages') %>" href="/<%= I18n.locale %>/product_packages" aria-expanded="false">
+        <i class="material-icons">work</i>
+        <%= t('product_packages.page_title') %>
+      </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link <%= is_current('product_attribute_categories') %>" href="/<%= I18n.locale %>/product_product_attribute_categories" aria-expanded="false">
+            <i class="material-icons">exposure</i>
+            <%= t('product_attribute_categories.title') %>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link <%= is_current('product_attributes') %>" href="/<%= I18n.locale %>/product_product_attributes" aria-expanded="false">
+            <i class="material-icons">edit_attributes</i>
+            <%= t('product_attributes.title') %>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link <%= is_current('product_skus') %>" href="/<%= I18n.locale %>/product_skus" aria-expanded="false">
+            <i class="material-icons">edit_attributes</i>
+            <%= t('skus.title') %>
+        </a>
+    </li>
+  <li class="nav-item">
+    <a class="nav-link <%= is_current('import_product') %>" href="/<%= I18n.locale %>/import_product" aria-expanded="false">
+      <i class="material-icons">input</i>
+      <%= t('products.import_wechat_product') %>
+    </a>
+  </li>
+</ul>

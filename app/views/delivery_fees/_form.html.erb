@@ -1,0 +1,24 @@
+<%= form_with(model: delivery_fee, id: 'cust-form', local: true) do |form| %>
+  <% if delivery_fee.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(delivery_fee.errors.count, "error") %> prohibited this delivery_fee from being saved:</h2>
+
+      <ul>
+      <% delivery_fee.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :price, t('provinces.price')  %>
+    <%= form.number_field :price, class:"form-control" %>
+  </div>
+
+  <%= render 'country_provinces', form: form %>
+
+  <div class="actions">
+    <%= form.submit t('submit'), :class => 'btn btn-primary' %>
+  </div>
+<% end %>

@@ -1,0 +1,18 @@
+en:
+  product_packages:
+    page_title: Product Package
+    title: Product Package Title
+    new: Create Product Package
+    category: Product Package Category
+    attachments: image
+    description: description
+    note: note
+    composition: composition
+    choose_product: Choose Product
+    star_product: Star Product
+    hidden_product: Hidden Product
+    publish: Publish
+    shipping_price: Shipping Price
+    pick_page: Choose Page
+    trial:
+      setting: Product Package Trail Setting

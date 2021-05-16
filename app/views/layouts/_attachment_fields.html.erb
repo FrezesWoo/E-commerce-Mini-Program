@@ -1,0 +1,32 @@
+<div class="nested-fields row">
+
+  <div class="attachment-attribute-label <%= has_file_uploded(f) %>">
+    <div class="align-labels">
+      <i class="material-icons">cloud_download</i><%= f.label :file %>
+    </div>
+    <%= f.file_field :file %>
+  </div>
+
+  <div class="attachment-attribute-label <%= has_file_uploded(f) == 'col-lg-3' ? 'col-lg-3' : 'hidden-fields' %>">
+    <% if !f.object.file.url.include?'missing' %>
+      <%= image_tag f.object.file.url(:thumb) %>
+    <% end %>
+  </div>
+
+  <%= f.hidden_field :tags, class:"form-control" %>
+
+  <div class="<%= has_file_uploded(f) %>">
+    <%= f.label :weight, t('products.attachements.weight') %>
+    <%= f.number_field :weight, class:"form-control" %>
+  </div>
+
+  <div class="<%= has_file_uploded(f) %>">
+    <%= f.label :alt %>
+    <%= f.text_field :alt, class:"form-control" %>
+  </div>
+
+  <div class="<%= has_file_uploded(f) %>">
+    <%= link_to_remove_association raw("<i class='material-icons'>remove_circle</i><span>#{t('remove_attachment')}</span>"), f, class: 'remove-icone-attribute-field' %>
+  </div>
+
+</div>

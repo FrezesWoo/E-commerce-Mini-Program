@@ -1,0 +1,10 @@
+zh-CN:
+  lucky_draws:
+    page_title: 抽奖订单
+    title: 抽奖奖品
+    package: 选择商品
+    sample_prize: 是否小样奖品
+    status: 上架
+    code: 兑换码
+    code_status: 兑换码状态
+    export: 导出

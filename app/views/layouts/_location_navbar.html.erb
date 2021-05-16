@@ -1,0 +1,20 @@
+<ul class="nav nav-pills nav-pills-icons sub-nav-products">
+    <li class="nav-item">
+        <a class="nav-link <%= is_current('country_provinces') %>" href="/<%= I18n.locale %>/country_provinces" aria-expanded="true">
+            <i class="material-icons">room</i>
+            <%= t('country_provinces.page_title') %>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link <%= is_current('countries') %>" href="/<%= I18n.locale %>/countries" aria-expanded="false">
+            <i class="material-icons">map</i>
+            <%= t('countries.page_title') %>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link <%= is_current('delivery_fees') %>" href="/<%= I18n.locale %>/delivery_fees" aria-expanded="false">
+            <i class="material-icons">my_location</i>
+            <%= t('delivery_fees.title') %>
+        </a>
+    </li>
+</ul>

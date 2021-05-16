@@ -1,0 +1,11 @@
+<h1><%= t('gift_cards.title') %> </h1>
+
+<div class="container">
+  <div class='row'>
+    <%= render 'form', gift_card: @gift_card %>
+  </div>
+</div>
+
+<div class="container page-control">
+  <%= link_to t('back'), gift_cards_path, class: 'back' %>
+</div>

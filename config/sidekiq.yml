@@ -1,0 +1,15 @@
+---
+:concurrency: 5
+staging:
+  :concurrency: 1
+uat:
+  :concurrency: 10
+testing:
+    :concurrency: 1
+production:
+  :concurrency: 20
+:queues:
+  - critical
+  - default
+  - low
+  - order

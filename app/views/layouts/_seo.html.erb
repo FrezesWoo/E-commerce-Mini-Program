@@ -1,0 +1,38 @@
+<div id="accordion" role="tablist">
+  <div class="card card-collapse">
+    <div class="card-header" role="tab" id="headingOne">
+      <h5 class="mb-0">
+        <a data-toggle="collapse" href="#collapseSEO" aria-expanded="false" aria-controls="collapseSEO">
+          <i class='material-icons'>web</i>SEO
+          <i class="material-icons">keyboard_arrow_down</i>
+        </a>
+      </h5>
+    </div>
+
+    <div id="collapseSEO" class="collapse show" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
+      <div class="card-body">
+
+        <div class="form-group">
+          <%= form.label :slug, t('seo.slug') %>
+          <%= form.text_field :slug, class:"form-control" %>
+        </div>
+
+        <div class="form-group">
+          <%= form.label :seo_title, t('seo.seo_title') %>
+          <%= form.text_field :seo_title, class:"form-control" %>
+        </div>
+
+        <div class="form-group">
+          <%= form.label :seo_meta_tag, t('seo.seo_meta_tag') %>
+          <%= form.text_field :seo_meta_tag, class:"form-control" %>
+        </div>
+
+        <div class="form-group">
+          <%= form.label :seo_meta_description, t('seo.seo_meta_description') %>
+          <%= form.text_area :seo_meta_description, class:"form-control" %>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,26 @@
+<p>
+  <a class="btn btn-primary" data-toggle="collapse" href="#collapseBlocks" aria-expanded="true" aria-controls="collapseExample">
+    <i class="material-icons">apps</i> <%= t('product_packages.choose_product') %>
+  </a>
+</p>
+<div class="collapse show" id="collapseBlocks">
+  <div class="card card-body">
+    <div id="blocks">
+      <div id="accordion" role="tablist">
+        <%= form.fields_for :product_package_products do |product| %>
+          <div class="card card-collapse">
+            <div id="collapse<%= product.index %>" class="collapse show" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
+              <div class="card-body">
+                <%= render 'product_package_product_fields', f: product, index: product.index %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="links add-new-icone">
+        <%= link_to_add_association raw("<i class='material-icons'>add_circle</i><span>#{t('pages.blocks.add')}</span>"), form, :product_package_products %>
+      </div>
+    </div>
+  </div>
+</div>

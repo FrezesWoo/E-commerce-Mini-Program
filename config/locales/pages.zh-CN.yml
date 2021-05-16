@@ -1,0 +1,12 @@
+zh-CN:
+  pages:
+    page_title: 自定义页面
+    title: 自定义页面
+    blocks:
+      template: Template
+      slides:
+        link_type: 链接类型
+      tabbars:
+        title: 锚点导航
+        anchor_hover_image: 锚点按钮图片
+        anchor_active_image: 锚点高亮图片

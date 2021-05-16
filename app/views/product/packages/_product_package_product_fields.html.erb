@@ -1,0 +1,26 @@
+<div class="nested-fields row single-block">
+  <div class="col-sm-6">
+    <div class="align-labels">
+      <i class='material-icons'>spa</i><%= f.label :product_id, t('product_package.choose_product') %>
+    </div>
+    <%= f.select :product_id, ::Product.all.map { |i| [i[:name], i[:id]] }, {prompt: 'Select Product'}, {:class => "form-control selectpicker chosen-select select-one-product", :id => "exampleFormControlSelect1", :"data-style" => "btn btn-link" } %>
+  </div>
+
+  <div class="col-md-4">
+    <%= link_to_remove_association raw("<i class='material-icons'>remove_circle</i><span>#{t('product_package.remove')}</span>"), f, class: 'remove-icone-attribute-field' %>
+  </div>
+
+  <%= render 'skus', form: f %>
+</div>
+
+<%= javascript_tag do %>
+  $('.chosen-select').chosen({
+    allow_single_deselect: false,
+    no_results_text: 'No results matched',
+    width: '100%'
+  });
+  $(document).on('change', '.select-one-product', function() {
+    const allProductSkus = $(this.parentElement.parentElement.getElementsByClassName('product-skus-selection'));
+    getSkusData($(this).val(), allProductSkus);
+  })
+<% end %>

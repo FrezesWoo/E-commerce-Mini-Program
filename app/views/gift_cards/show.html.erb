@@ -1,0 +1,19 @@
+<div class="page-header">
+  <h1> <%= t('gift_cards.page_title') %> </h1>
+</div>
+
+<div class="container">
+  <div class='row'>
+    <dl>
+      <dt><%= t('gift_cards.image') %> </dt>
+      <dd><%= image_tag @gift_card.image.url(:thumb) %></dd>
+    </dl>
+  </div>
+</div>
+
+<div class="container page-control">
+  <%= link_to t('back'), gift_cards_path, class: 'back' %> |
+  <% if current_user.is_editor %>
+    <%= link_to raw("<i class='material-icons'>create</i><span>#{t('edit')}</span>"), edit_gift_card_path(@gift_card) %>
+  <% end %>
+</div>

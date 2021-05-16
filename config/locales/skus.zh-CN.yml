@@ -1,0 +1,18 @@
+zh-CN:
+  skus:
+    title: SKU
+    price: Price
+    shipping_price: Shipping Price
+    choose_product: Choose a Product
+    currency: Currency
+    descriptions: Description
+    composition: Composition
+    limited_product:
+      name: 限购
+      setting: 限购设置
+      limit_start_date: 限购开始日期
+      limit_end_date: 限购结束日期
+    product_attribute:
+      name: 产品属性
+      order: Order
+    is_puff: 化妆棉

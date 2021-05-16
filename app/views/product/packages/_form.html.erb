@@ -1,0 +1,127 @@
+<%= form_with(model: product_package, id: 'cust-form', local: true, class: 'row') do |form| %>
+  <% if product_package.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(product_package.errors.count, "error") %> prohibited this product_package from being saved:</h2>
+
+      <ul>
+      <% product_package.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group col-sm-6">
+    <%= form.label :name, t('product_package.name') %>
+    <%= form.text_field :name, class:"form-control" %>
+  </div>
+
+  <div class="form-group col-sm-6">
+    <div class="align-labels">
+      <i class='material-icons'>category</i><%= form.label :product_category_id, t('product_package.choose_package_category') %>
+    </div>
+    <%= form.collection_select(:product_category_id, Product::Category.all, :id, :name, {}, {:class=>'form-control selectpicker', :dataStyle => "btn btn-link", :id => "exampleFormControlSelect1" } ) %>
+  </div>
+
+  <div class="col-md-6">
+    <%= form.label :page_id, t('product_packages.pick_page') %>
+    <%= form.collection_select(:page_id, Page.all, :id, :name, {:prompt => '', :include_blank => 'Select an Option'}, {:class=>'form-control selectpicker chosen-select', :dataStyle => "btn btn-link", :id => "exampleFormControlSelect1"} ) %>
+  </div>
+
+  <div class="form-group col-3">
+    <%= form.label :shipping_price, t('product_packages.shipping_price')  %>
+    <%= form.number_field :shipping_price, class:"form-control"  %>
+  </div>
+
+  <div class="form-group col-sm-3">
+    <%= form.label :ordering, t('product_package.ordering') %>
+    <%= form.number_field :ordering, class:"form-control" %>
+  </div>
+
+  <div class="col-sm-2 form-check">
+    <label class="form-check-label">
+      <%= form.label :star_product, t('product_packages.star_product') %>
+      <%= form.check_box :star_product, class: 'form-check-input' -%>
+      <span class="form-check-sign">
+          <span class="check"></span>
+      </span>
+    </label>
+  </div>
+
+  <div class="col-sm-2 form-check">
+    <label class="form-check-label">
+      <%= form.label :hidden_product, t('product_packages.hidden_product') %>
+      <%= form.check_box :hidden_product, class: 'form-check-input' -%>
+      <span class="form-check-sign">
+          <span class="check"></span>
+      </span>
+    </label>
+  </div>
+
+  <div class="col-sm-2 form-check">
+    <label class="form-check-label">
+      <%= form.label :publish, t('product_packages.publish') %>
+      <%= form.check_box :publish, class: 'form-check-input' -%>
+      <span class="form-check-sign">
+          <span class="check"></span>
+      </span>
+    </label>
+  </div>
+
+  <div class="form-group col-sm-12">
+    <%= render 'trails', form: form %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :description, t('product_packages.description') %>
+    <%= form.cktext_area :description, cols: 40,  ckeditor: { uiColor: '#AADC6E' } %>
+  </div>
+
+  <div class="form-group col-sm-6">
+    <%= form.label :note, t('product_packages.note') %>
+    <%= form.cktext_area :note, cols: 40,  ckeditor: { uiColor: '#AADC6E' } %>
+  </div>
+
+  <div class="form-group col-sm-6">
+    <%= form.label :composition, t('product_packages.composition') %>
+    <%= form.cktext_area :composition, cols: 30,  ckeditor: { uiColor: '#AADC6E' } %>
+  </div>
+
+  <div class="col-md-12">
+    <%= render 'blocks', form: form %>
+  </div>
+
+  <div class="col-sm-12">
+    <%= render 'attachments', form: form %>
+  </div>
+
+  <div class="col-sm-12">
+    <%= render 'product_packages_products', form: form %>
+  </div>
+
+  <div class="col-sm-4"></div>
+  <div class="col-sm-4">
+    <%= render 'layouts/simple_upload', form: form %>
+  </div>
+  <div class="col-sm-4"></div>
+
+  <%= render 'layouts/updated_by', form: form %>
+
+  <div class="submission">
+    <div class="actions">
+      <%= form.submit t('submit'), :class => 'btn btn-primary btn-round submit' %>
+      <%= link_to t('back'), product_packages_path, :class => 'btn btn-primary btn-warning cancel' %>
+      <% if !@product_package.new_record? %> <%= link_to raw('<i class="material-icons medium">restore_from_trash</i>'), @product_package, method: :delete, data: { confirm: 'Are you sure?' }, class: 'delete-article'  %> <% end %>
+    </div>
+  </div>
+
+<% end %>
+
+<%= javascript_tag do %>
+  $(document).ready(function() {
+    $('.select-product-block-template').each((idx, el) => {
+        let data = $(el).find("option:selected").val();
+        $(el).parent().parent().children(".hidden-fields").hide().siblings('.' + data).show();
+    })
+  })
+<% end %>

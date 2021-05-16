@@ -1,0 +1,39 @@
+<div class="collapse show" id="collapseBlocks">
+  <div class="card card-body">
+    <div id="blocks">
+      <div id="accordion" role="tablist">
+        <%= form.fields_for :trails do |trail| %>
+          <div class="card card-collapse">
+            <div id="collapse<%= trail.index %>" class="collapse show trail_collapse" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
+              <div class="card-body">
+                <%= render 'trail_fields', f: trail, index: trail.index %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="links add-new-icone">
+        <%= link_to_add_association raw("<span class='trail_add_new'><i class='material-icons'>add_circle</i>#{t('product_packages.trial.setting')}</span>"), form, :trails %>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<%= javascript_tag do %>
+  $(document).ready(function() {
+    $('.trail_add_new').bind('click', function() {
+        $(this).hide()
+    })
+
+    $('.trail_collapse').each(function() {
+      var $collapse = $(this)
+      if ($collapse.find('.trial_block').length > 0) {
+          $collapse.find('.trail_add_new').hide()
+      }
+    })
+
+  })
+<% end %>
+

@@ -1,0 +1,14 @@
+<div class="dropdown language-switcher">
+  <button type="button" class="btn btn-primary dropdown-toggle full-button" data-toggle="dropdown">
+    <%= get_proper_name(I18n.locale) %>
+    <span class="flag-icon flag-icon-<%= get_proper_flag(I18n.locale) %>"></span>
+  </button>
+  <div class="dropdown-menu">
+    <% I18n.available_locales.each do |lang| %>
+      <div class="lang-item">
+        <%= link_to(get_proper_name(lang), locale: lang) %>
+        <span class="flag-icon flag-icon-<%= get_proper_flag(lang) %>"></span>
+      </div>
+    <% end %>
+  </div>
+</div>

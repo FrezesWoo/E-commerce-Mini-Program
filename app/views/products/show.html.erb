@@ -1,0 +1,32 @@
+<%= render 'layouts/product_navbar' %>
+
+<div class="page-header">
+  <h1> <%= t('products.page_title') %> </h1>
+</div>
+
+<div class="container">
+  <div class='row'>
+    <dl>
+      <dt><%= t('products.name') %></dt>
+      <dd><%= @product.name %></dd>
+      <dt><%= t('products.description') %></dt>
+      <dd><%= @product.description && @product.description.html_safe %></dd>
+      <dt><%= t('products.composition') %></dt>
+      <dd><%= @product.composition && @product.composition.html_safe %></dd>
+      <dt><%= t('products.note') %></dt>
+      <dd><%= @product.note && @product.note.html_safe %></dd>
+      <dt><%= t('products.image') %></dt>
+      <dd><%= image_tag @product.image.url, class: 'view-image' %></dd>
+      <dt><%= t('products.product_category') %></dt>
+      <dd><%= @product.product_category && @product.product_category.name %></dd>
+    </dl>
+  </div>
+</div>
+
+<div class="container page-control">
+  <%= link_to t('back'), products_path, class: 'back' %> |
+  <% if current_user.is_editor %>
+    <%= link_to raw("<i class='material-icons'>create</i><span>#{t('edit')}</span>"), edit_product_path(@product) %> |
+    <%= link_to raw("<i class='material-icons'>add_circle</i><span>#{t('products.new')}</span>"), new_product_path, data: { 'no-turbolink' => true} %>
+  <% end %>
+</div>

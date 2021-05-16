@@ -1,0 +1,58 @@
+<%= form_with(model: product_category, id: 'cust-form', class: 'row', local: true) do |form| %>
+  <% if product_category.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(product_category.errors.count, "error") %> prohibited this product_category from being saved:</h2>
+      <ul>
+      <% product_category.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group col-sm-6">
+    <%= form.label :name, t('product_categories.title') %>
+    <%= form.text_field :name, class:"form-control" %>
+  </div>
+
+  <div class="form-group col-sm-6">
+    <%= form.label :ordering, t('product_categories.ordering') %>
+    <%= form.number_field :ordering, class:"form-control" %>
+  </div>
+
+  <div class="col-sm-6 form-check">
+    <label class="form-check-label">
+      <%= form.label :is_sample, t('product_categories.is_sample') %>
+      <%= form.check_box :is_sample, class: 'form-check-input' %>
+      <span class="form-check-sign">
+          <span class="check"></span>
+      </span>
+    </label>
+  </div>
+
+  <div class="col-sm-6 form-check">
+    <label class="form-check-label">
+      <%= form.label :publish %>
+      <%= form.check_box :publish, class: 'form-check-input' %>
+      <span class="form-check-sign">
+          <span class="check"></span>
+      </span>
+    </label>
+  </div>
+
+<!--  <div class="col-sm-4"></div>-->
+<!--  <div class="col-sm-4">-->
+    <%#= render 'layouts/simple_upload', form: form %>
+<!--  </div>-->
+<!--  <div class="col-sm-4"></div>-->
+
+  <%= render 'layouts/updated_by', form: form %>
+
+  <div class="submission">
+    <div class="actions">
+      <%= form.submit t('submit'), :class => 'btn btn-primary btn-round submit' %>
+      <%= link_to t('back'), product_categories_path, :class => 'btn btn-primary btn-warning cancel' %>
+      <% if !@product_category.new_record? %> <%= link_to raw('<i class="material-icons medium">restore_from_trash</i>'), @product_category, method: :delete, data: { confirm: 'Are you sure?' }, class: 'delete-article'  %> <% end %>
+    </div>
+  </div>
+<% end %>

@@ -1,0 +1,12 @@
+en:
+  coupons:
+    page_title: Coupon
+    title: Coupon
+    new: New
+    listing: List of Coupons
+    download: Download List of Coupons
+    product_skus: Product Skus
+    invalid_coupon: Invalid Coupon
+    used_coupon: Used Coupon
+    coupon_price_limit: Coupon Price Limit
+    coupon_product_limit: Coupon Product Limit

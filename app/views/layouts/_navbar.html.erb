@@ -1,0 +1,135 @@
+<div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
+  <!--
+    Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
+
+    Tip 2: you can also add an image using data-image tag
+  -->
+  <div class="logo">
+    <a href="/<%= I18n.locale %>" class="simple-text logo-normal">
+      <%= image_tag image_url('favicon.png'), width: '40px' %>
+      <%= t('shiseido-ec-oms') %>
+    </a>
+  </div>
+  <div class="sidebar-wrapper">
+    <ul class="nav">
+      <% if user_signed_in? %>
+        <li class="nav-item <%= is_current('/products') %>">
+          <a class="nav-link" href="/<%= I18n.locale %>/products">
+            <i class="material-icons">spa</i>
+            <p><%= t('products.title') %></p>
+          </a>
+        </li>
+        <% if current_user.is_admin %>
+        <li class="nav-item <%= is_current('users') %>">
+          <a class="nav-link" href="/<%= I18n.locale %>/users">
+            <i class="material-icons">person</i>
+            <p> <%= t('users.profile') %> </p>
+          </a>
+        </li>
+        <% end %>
+        <li class="nav-item <%= is_current('/product_bundles') %>">
+          <a class="nav-link" href="/<%= I18n.locale %>/product_bundles">
+            <i class="material-icons">group_work</i>
+            <p> <%= t('product_bundles.title') %> </p>
+          </a>
+        </li>
+        <li class="nav-item <%= is_current('coupons') %>">
+          <a class="nav-link" href="/<%= I18n.locale %>/coupons">
+            <i class="material-icons">view_headline</i>
+            <p> <%= t('coupons.title') %> </p>
+          </a>
+        </li>
+        <li class="nav-item <%= is_current('/lucky_draw_prizes') %>">
+          <a class="nav-link" href="/<%= I18n.locale %>/lucky_draw_prizes">
+            <i class="material-icons">star</i>
+            <p> <%= t('lucky_draws.title') %> </p>
+          </a>
+        </li>
+        <li class="nav-item <%= is_current('/lucky_draws') %>">
+          <a class="nav-link" href="/<%= I18n.locale %>/lucky_draws">
+            <i class="material-icons">stars</i>
+            <p> <%= t('lucky_draws.page_title') %> </p>
+          </a>
+        </li>
+        <li class="nav-item <%= is_current('/orders/source/0') %>">
+          <a class="nav-link" href="/<%= I18n.locale %>/orders/source/0">
+            <i class="material-icons">description</i>
+            <p> <%= t('orders.title') %> </p>
+          </a>
+        </li>
+        <li class="nav-item <%= is_current('/customers') %>">
+          <a class="nav-link" href="/<%= I18n.locale %>/customers">
+            <i class="material-icons">people</i>
+            <p> <%= t('customers.page_title') %> </p>
+          </a>
+        </li>
+        <li class="nav-item <%= is_current('/orders/source/1') %>">
+          <a class="nav-link" href="/<%= I18n.locale %>/orders/source/1">
+            <i class="material-icons">music_video</i>
+            <p> <%= t('orders.douyin_title') %> </p>
+          </a>
+        </li>
+        <li class="nav-item <%= is_current('/douyin_customers') %>">
+          <a class="nav-link" href="/<%= I18n.locale %>/douyin_customers">
+            <i class="material-icons">music_note</i>
+            <p> <%= t('douyin_customers.page_title') %> </p>
+          </a>
+        </li>
+        <li class="nav-item <%= is_current('pages') %>">
+          <a class="nav-link" href="/<%= I18n.locale %>/pages">
+            <i class="material-icons">library_books</i>
+            <p> <%= t('pages.title') %> </p>
+          </a>
+        </li>
+        <li class="nav-item <%= is_current('gift_cards') %>">
+          <a class="nav-link" href="/<%= I18n.locale %>/gift_cards">
+            <i class="material-icons">card_giftcard</i>
+            <p> <%= t('gift_cards.title') %> </p>
+          </a>
+        </li>
+        <li class="nav-item <%= is_current('mp_images') %>">
+          <a class="nav-link" href="/<%= I18n.locale %>/mp_images">
+            <i class="material-icons">image</i>
+            <p> <%= t('mp_images.title') %> </p>
+          </a>
+        </li>
+        <li class="nav-item <%= is_current('mp_links') %>">
+          <a class="nav-link" href="/<%= I18n.locale %>/mp_links">
+            <i class="material-icons">link</i>
+            <p> <%= t('mp_links.title') %> </p>
+          </a>
+        </li>
+        <li class="nav-item <%= is_current('country_provinces') %>">
+          <a class="nav-link" href="/<%= I18n.locale %>/country_provinces">
+            <i class="material-icons">room</i>
+            <p> <%= t('country_provinces.title') %> </p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/documentation">
+            <i class="material-icons">https</i>
+            <p> <%= t("api_doc") %></p>
+          </a>
+        </li>
+        <% if current_user.is_admin %>
+          <li class="nav-item <%= is_current('statistics') %>">
+            <a class="nav-link" href="/<%= I18n.locale %>/statistics">
+              <i class="material-icons">poll</i>
+              <p> <%= t('statistics') %> </p>
+            </a>
+          </li>
+        <% end %>
+        <li class="nav-item">
+          <%= link_to raw("<i class='material-icons'>arrow_right</i><p>#{t('logout')}</p>"), destroy_user_session_path, method: :delete, :class => 'nav-link'  %>
+        </li>
+        <li class="nav-item">
+          <%= render 'layouts/language_switcher' %>
+        </li>
+      <% else %>
+        <li class="nav-item">
+          <%= link_to raw("<i class='material-icons'>account_circle</i><p>#{t('login')}</p>"), new_user_session_path, :class => 'nav-link' %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>

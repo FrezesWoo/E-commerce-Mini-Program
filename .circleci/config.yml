@@ -1,0 +1,71 @@
+
+version: 2
+jobs:
+  # The build job
+  build:
+    working_directory: ~/christies-back
+    docker:
+      - image: circleci/ruby:2.5.0-node
+    # Service container image available at `host: localhost`
+      - image: circleci/postgres:10-alpine-postgis
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_DB: christies
+    steps:
+      - checkout
+      # Log the current branch
+      - run:
+          name: Show current branch
+          command: echo ${CIRCLE_BRANCH}
+      # We run all the needed command to install DB settings
+      - run:
+          name: install pg client if not installed yet
+          command: |
+            sudo apt-get update
+            sudo apt install postgresql-client graphviz --fix-missing
+      # Install bundler
+      - run:
+          name: Intall bundler
+          command: gem install bundler
+      - run:
+          name: We create the user ten_user
+          command: psql -U postgres -h localhost -c "CREATE ROLE ten_user WITH LOGIN SUPERUSER;"
+      - run:
+          name: We create the user ten_user
+          command: psql -U postgres -h localhost -c "ALTER ROLE ten_user WITH PASSWORD 'password';"
+      - run:
+          name: Set up secrets config file
+          command: cp config/secrets.yml.sample config/secrets.yml
+      - run:
+          name: Set up postgresql config file
+          command: cp config/database.yml.postgresql config/database.yml
+     # Restore bundle cache
+      - restore_cache:
+          keys:
+            - byredo-back-bundle-v2-{{ checksum "Gemfile.lock" }}
+      # Install bundle dependencies
+      - run:
+          name: Bundle install
+          command: bundle install --path vendor/bundle
+      # Store bundle cache
+      - save_cache:
+          key: byredo-back-bundle-v2-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+      # - run:
+      #     name: We insert data
+      #     command: rake db:create; rake db:migrate
+      # - run:
+      #     name: run unit test
+      #     command: rspec
+      - run:
+          name: Building
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "develop" ]; then
+              cap staging deploy
+            elif [ "${CIRCLE_BRANCH}" == "uat" ]; then
+              cap uat deploy
+            elif [ "${CIRCLE_BRANCH}" == "master" ]; then
+              cap production deploy
+            fi
+          no_output_timeout: 15m

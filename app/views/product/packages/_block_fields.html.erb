@@ -1,0 +1,84 @@
+<div class="nested-fields row single-block">
+
+  <div class="col-sm-6 form-group">
+    <%= f.label :template, t('campaigns.blocks.template') %>
+    <%= f.select :template, ::Product::Package::Block.templates.keys.to_a, {:prompt => 'Select a template'}, { :class => "form-control selectpicker select-product-block-template #{f.index}", :id => "exampleFormControlSelect1", :"data-style" => "btn btn-link" } %>
+  </div>
+
+  <div class="col-sm-6 form-group hidden-fields <%= all_classes(['image'], f.object.template) %>">
+    <%= f.label :ordering, t('campaigns.blocks.ordering') %>
+    <%= f.number_field :ordering, class:"form-control" -%>
+  </div>
+
+  <div class="col-sm-12 hidden-fields <%= all_classes(['image'], f.object.template) %>">
+
+    <div class="row">
+
+      <div class="col-sm-4"></div>
+
+      <div class="col-sm-4">
+        <%= render 'layouts/simple_upload', form: f %>
+      </div>
+
+      <div class="col-sm-4"></div>
+
+    </div>
+
+  </div>
+
+  <div class="col-sm-12 hidden-fields <%= all_classes(['link'], f.object.template) %>">
+
+    <div class="row">
+
+      <div class="col-sm-8">
+        <%= f.label :link, t('campaigns.blocks.link')%>
+        <%= f.text_field :link, class:"form-control" %>
+      </div>
+
+      <div class="col-sm-4"></div>
+
+    </div>
+
+  </div>
+
+<!--  <div class="col-sm-12 hidden-fields <%#= all_classes(['image'], f.object.template) %>">-->
+
+<!--    <div class="row">-->
+
+      <div class="col-sm-3 hidden-fields <%= all_classes(['link','image'], f.object.template) %>">
+        <%= f.label :link_height, t('product_packages.blocks.link_height') %>
+        <%= f.number_field :link_height, class:"form-control" -%>
+      </div>
+
+      <div class="col-sm-3 hidden-fields <%= all_classes(['link','image'], f.object.template) %>">
+        <%= f.label :link_width, t('product_packages.blocks.link_width') %>
+        <%= f.number_field :link_width, class:"form-control" -%>
+      </div>
+
+      <div class="col-sm-3 hidden-fields <%= all_classes(['image'], f.object.template) %>">
+        <%= f.label :x_position, t('product_packages.blocks.x_position') %>
+        <%= f.number_field :x_position, class:"form-control" -%>
+      </div>
+
+      <div class="col-sm-3 hidden-fields <%= all_classes(['image'], f.object.template) %>">
+        <%= f.label :y_position, t('product_packages.blocks.y_position') %>
+        <%= f.number_field :y_position, class:"form-control" -%>
+      </div>
+
+<!--    </div>-->
+
+<!--  </div>-->
+
+  <div class="col-sm-4">
+    <%= link_to_remove_association raw("<i class='material-icons'>remove_circle</i><span>#{t('campaigns.blocks.remove')}</span>"), f, class: 'remove-icone-attribute-field' %>
+  </div>
+
+</div>
+
+<%= javascript_tag do %>
+  $('.chosen-select').chosen({
+    allow_single_deselect: false,
+    no_results_text: 'No results matched',
+    width: '100%'
+  });
+<% end %>

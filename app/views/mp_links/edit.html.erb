@@ -1,0 +1,15 @@
+<h1><%= t('mp_links.edit') %> </h1>
+
+<div class="container">
+  <div class='row'>
+    <%= render 'form', mp_link: @mp_link %>
+  </div>
+</div>
+
+<div class="container page-control">
+  <%= link_to t('back'), mp_links_path, class: 'back' %> |
+  <%= link_to raw("<i class='material-icons'>visibility</i><span>#{t('show')}</span>"), @mp_link %> |
+  <% if current_user.is_editor %>
+    <%= link_to raw("<i class='material-icons'>add_circle</i><span>#{t('page_blocks.new')}</span>"), new_mp_link_path, data: { 'no-turbolink' => true} %>
+  <% end %>
+</div>

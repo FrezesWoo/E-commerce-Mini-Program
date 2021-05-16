@@ -1,0 +1,33 @@
+<p>
+  <a class="btn btn-primary" data-toggle="collapse" href="#collapseBlocks" aria-expanded="true" aria-controls="collapseExample">
+    <i class="material-icons">apps</i> <%= t('delivery_fees.country_province.title') %>
+  </a>
+</p>
+<div class="collapse show" id="collapseBlocks">
+  <div class="card card-body">
+    <div id="blocks">
+      <div id="accordion" role="tablist">
+        <%= form.fields_for :country_provinces_delivery_fees do |country_provinces_delivery_fee| %>
+          <div class="card card-collapse">
+            <div class="card-header" role="tab" id="headingOne">
+              <h5 class="mb-0">
+                <a data-toggle="collapse" href="#collapse<%= country_provinces_delivery_fee.index %>" aria-expanded="true" aria-controls="collapse<%= country_provinces_delivery_fee.index %>">
+                  <i class="material-icons">keyboard_arrow_down</i>
+                </a>
+              </h5>
+            </div>
+            <div id="collapse<%= country_provinces_delivery_fee.index %>" class="collapse show" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
+              <div class="card-body">
+                <%= render 'country_provinces_delivery_fee_fields', f: country_provinces_delivery_fee, index: country_provinces_delivery_fee.index %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="links add-new-icone">
+        <%= link_to_add_association raw("<i class='material-icons'>add_circle</i><span>#{t('pages.blocks.add')}</span>"), form, :country_provinces_delivery_fees %>
+      </div>
+    </div>
+  </div>
+</div>

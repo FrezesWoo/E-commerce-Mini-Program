@@ -1,0 +1,17 @@
+<div class='container card'>
+  <%= form.fields_for :skus do |sku| %>
+      <%= render 'sku_fields', f: sku %>
+  <% end %>
+
+  <div class="links add-new-icone">
+    <%= link_to_add_association raw("<i class='material-icons'>add_circle</i><span>#{t('auctions.contacts.add')}</span>"), form, :skus, class: 'add-product-sku' %>
+  </div>
+</div>
+
+<%= javascript_tag do %>
+  $(document).on('click','.add-product-sku',function(){
+    const product = $(this).parent().parent().parent().find('.select-one-product');
+    if(product.val() === '') return;
+    getSkusData(product.val(), $(this).parent().prev().find('.product-skus-selection'));
+  });
+<% end %>

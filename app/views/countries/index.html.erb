@@ -1,0 +1,41 @@
+<%= render 'layouts/location_navbar' %>
+
+<div class="page-header">
+  <h1> <%= t('countries.listing') %> </h1>
+  <% if current_user.is_editor %>
+    <div class="new-item">
+      <%= link_to raw("<i class='material-icons'>add_circle</i><span>#{t('new')}</span>"), new_country_path, data: { 'no-turbolink' => true} %>
+    </div>
+  <% end %>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-fixed table-white table-hover">
+    <thead>
+    <th width="20%"> <%=  t('countries.name') %> </th>
+    <th width="20%"> <%=  t('countries.latitude') %> </th>
+    <th width="20%"> <%=  t('countries.longitude') %> </th>
+    <th width="20%"> <%=  t('countries.created_at') %> </th>
+    <th width="6.6%"> <%= t('show')%> </th>
+    <% if current_user.is_editor %>
+      <th width="6.6%"> <%= t('edit')%> </th>
+      <th width="6.6%"> <%= t('delete')%> </th>
+    <% end %>
+    </thead>
+    <tbody>
+    <% @countries.each do |country|%>
+      <tr>
+        <td width="20%"><%= country.name %> </td>
+        <td width="20%"><%= country.latitude %></td>
+        <td width="20%"><%= country.longitude %> </td>
+        <td width="20%"><%= country.created_at %> </td>
+        <td width="6.6%"><i class="material-icons small">visibility</i><%= link_to t('show'), country %></td>
+        <% if current_user.is_editor  %>
+          <td width="6.6%"><i class="material-icons small">create</i><%= link_to t('edit'), edit_country_path(country) %></td>
+          <td width="6.6%"><i class="material-icons small">clear</i><%= link_to t('delete'), country, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

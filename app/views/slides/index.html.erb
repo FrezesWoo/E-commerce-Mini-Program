@@ -1,0 +1,31 @@
+<div class="page-header">
+  <h1>  <%=  t('slides.listing') %> </h1>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-fixed table-white table-hover">
+    <thead>
+    <tr>
+      <th width="40%"><%= t('slides.name') %></th>
+      <th width="20%"> <%= t('show')%> </th>
+      <th width="20%"> <%= t('edit')%> </th>
+      <th width="20%"> <%= t('delete')%> </th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% @slides.each do |slide| %>
+      <tr>
+        <td width="40%"><%= slide.name %> </td>
+        <td width="20%"><i class="material-icons small">visibility</i><%= link_to 'Show', show_slide_path(slide) %></td>
+        <td width="20%"><i class="material-icons small">create</i><%= link_to 'Edit', edit_slide_path(slide) %></td>
+        <td width="20%"><i class="material-icons small">clear</i><%= link_to 'Destroy', delete_slide_path(slide), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+
+<% if current_user.is_editor && @slides.count === 0 %>
+  <%= link_to raw("<i class='material-icons'>add_circle</i><span>#{t('campaigns.new')}</span>"), new_slide_path, data: { 'no-turbolink' => true} %>
+<% end %>

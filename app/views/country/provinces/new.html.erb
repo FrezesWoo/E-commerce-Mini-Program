@@ -1,0 +1,13 @@
+<%= render 'layouts/location_navbar' %>
+
+<h1><%= t('country_province.page_title') %> </h1>
+
+<div class="container">
+  <div class='row'>
+    <%= render 'form', country_province: @country_province %>
+  </div>
+</div>
+
+<div class="container page-control">
+  <%= link_to t('back'), country_provinces_path, class: 'back' %>
+</div>

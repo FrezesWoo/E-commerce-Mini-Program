@@ -1,0 +1,51 @@
+<%= render 'layouts/product_navbar' %>
+
+<div class="page-header">
+  <h1>  <%= t('product_categories.listing') %> </h1>
+  <% if current_user.is_editor %>
+    <div class="new-item">
+      <%= link_to raw("<i class='material-icons'>add_circle</i><span>#{t('new')}</span>"), new_product_category_path %>
+    </div>
+  <% end %>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-fixed table-white table-hover">
+    <thead>
+      <th width="20%"> <%=  t('product_categories.name') %> </th>
+      <th width="20%"> <%=  t('product_categories.ordering') %> </th>
+      <th width="20%"> <%=  t('product_categories.created_at') %> </th>
+      <th width="20%"> <%=  t('product_categories.updated_at') %> </th>
+      <th width="6.66%"> <%= t('show')%> </th>
+      <% if current_user.is_editor %>
+        <th width="6.66%"> <%= t('edit')%> </th>
+        <th width="6.66%"> <%= t('delete')%> </th>
+      <% end %>
+    </thead>
+    <tbody>
+      <% @product_categories.each do |product_category|%>
+        <tr>
+          <td width="20%"><%= product_category.name %> </td>
+          <td width="20%"><%= product_category.ordering %> </td>
+          <td width="20%"><%= product_category.created_at %> </td>
+          <td width="20%"><%= product_category.updated_at %> </td>
+          <td width="6.66%"><i class="material-icons small">visibility</i><%= link_to t('show'), product_category %></td>
+          <% if current_user.is_editor  %>
+            <td width="6.66%"><i class="material-icons small">create</i><%= link_to t('edit'), edit_product_category_path(product_category) %></td>
+            <td width="6.66%"><i class="material-icons small">clear</i><%= link_to t('delete'), product_category, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+
+<div class="digg_pagination">
+  <div class="page_info">
+    <%= page_entries_info @product_categories %>
+  </div>
+</div>
+<nav aria-label="Page navigation example" class="pagination-paginate">
+  <%= will_paginate(@product_categories, :renderer => RemoteLinkPagination::LinkRenderer) %>
+</nav>

@@ -1,0 +1,11 @@
+<h1><%= t('mp_images.title') %> </h1>
+
+<div class="container">
+  <div class='row'>
+    <%= render 'form', mp_image: @mp_image %>
+  </div>
+</div>
+
+<div class="container page-control">
+  <%= link_to t('back'), mp_images_path, class: 'back' %>
+</div>

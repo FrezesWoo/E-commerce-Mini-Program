@@ -1,0 +1,90 @@
+<%= form_with(model: coupon, id: 'cust-form',  local: true, class: 'row') do |form| %>
+  <% if coupon.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(coupon.errors.count, "error") %> prohibited this coupon from being saved:</h2>
+
+      <ul>
+        <% coupon.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group col-10">
+    <%= form.label :code, t('coupon.code') %>
+    <%= form.text_field :code, class:"form-control", readonly: true %>
+  </div>
+
+  <div class="form-check col-2">
+    <label class="form-check-label">
+      <%= form.label :is_disposable, t('products.is_disposable')  %>
+      <%= form.check_box :is_disposable, class: 'form-check-input' %>
+      <span class="form-check-sign">
+            <span class="check"></span>
+        </span>
+    </label>
+  </div>
+
+  <div class="form-group col-6">
+    <%= form.label :expiry_start_date, t('coupon.expiry_start_date') %>
+    <%= form.datetime_select :expiry_start_date, class:"form-control" %>
+  </div>
+
+  <div class="form-group col-6">
+  <%= form.label :expiry_end_date, t('coupon.expiry_end_date') %>
+  <%= form.datetime_select :expiry_end_date, class:"form-control" %>
+</div>
+
+  <div class="form-group col-12">
+    <%= form.label :condition, t('coupon.pick_condition') %>
+    <span style="color:red;">whole: 全场使用的优惠码 product: 指定商品使用的优惠码 price: 满足金额使用的优惠码</span>
+    <%= form.select :condition, Coupon.conditions.keys.to_a, {}, { :class => "form-control selectpicker select-condition", :id => "exampleFormControlSelect1", :"data-style" => "btn btn-link" } %>
+  </div>
+
+  <div class="form-group col-12 hidden-fields <%= all_classes(['price'], form.object.condition) %>">
+    <%= form.label :price_condition, t('coupon.price_condition')  %>
+    <%= form.number_field :price_condition, class:"form-control" %>
+  </div>
+
+  <div class="form-group col-12 hidden-fields <%= all_classes(['product'], form.object.condition) %>">
+    <div class="align-labels">
+      <i class='material-icons'>spa</i><%= form.label :product_condition, t('coupon.product_condition') %>
+    </div>
+    <%= form.collection_select(:product_condition, Product.all, :id, :name, {:prompt => ''}, { :class=>'form-control selectpicker chosen-select', :dataStyle => "btn btn-link", :id => "exampleFormControlSelect1" }) %>
+  </div>
+
+  <div class="col-sm-12">
+    <%= render 'product_skus', form: form %>
+  </div>
+
+  <%= render 'layouts/updated_by', form: form %>
+
+  <div class="submission">
+    <div class="actions">
+      <%= form.submit t('submit'), :class => 'btn btn-primary btn-round submit' %>
+      <%= link_to t('back'), coupons_path, :class => 'btn btn-primary btn-warning cancel' %>
+      <% if !@coupon.new_record? %> <%= link_to raw('<i class="material-icons medium">restore_from_trash</i>'), @coupon, method: :delete, data: { confirm: 'Are you sure?' }, class: 'delete-article'  %> <% end %>
+    </div>
+  </div>
+<% end %>
+
+<%= javascript_tag do %>
+  $('.chosen-select').chosen({
+    allow_single_deselect: false,
+    no_results_text: 'No results matched',
+    width: '100%'
+  });
+
+  $(document).ready(function() {
+    $('.select-condition').each((idx, el) => {
+        let data = $(el).find("option:selected").val();
+        $(el).parent().parent().children(".hidden-fields").hide().siblings('.' + data).show();
+    })
+
+    $('.select-condition').bind('change', function() {
+        $(this).parent().parent().children('.hidden-fields').hide().siblings('.' + $(this).val()).show();
+    })
+  })
+<% end %>
+

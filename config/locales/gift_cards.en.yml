@@ -1,0 +1,6 @@
+en:
+  gift_cards:
+    page_title: GiftCard
+    title: Gift
+    blocks:
+      template: Template

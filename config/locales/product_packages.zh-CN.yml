@@ -1,0 +1,18 @@
+zh-CN:
+  product_packages:
+    page_title: 商品
+    title: 产品组合标题
+    new: 加一个产品组合
+    category: 产品组合分类
+    attachments: 照片
+    description: 长图
+    note: 商品描述
+    composition: 商品缩略图描述
+    choose_product: 选择商品
+    star_product: 出现在购物车
+    hidden_product: 隐藏商品
+    publish: 上架
+    shipping_price: 付邮试用邮费
+    pick_page: 选择页面
+    trial:
+      setting: 付邮试用时间设置

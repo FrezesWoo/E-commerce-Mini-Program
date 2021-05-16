@@ -1,0 +1,6 @@
+en:
+  launch_screens:
+    page_title: Launch Screen Page
+    title: Launch Screen Campaign
+    blocks:
+      template: Template

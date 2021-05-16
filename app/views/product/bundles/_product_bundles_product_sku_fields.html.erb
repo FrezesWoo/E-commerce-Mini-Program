@@ -1,0 +1,29 @@
+<div class="nested-fields row single-block">
+
+  <div class="col-md-4 form-group">
+    <div class="align-labels">
+      <i class='material-icons'>spa</i><%= f.label :product_sku_id, t('product_bundle.choose_product_sku') %>
+    </div>
+    <%= f.collection_select(:product_sku_id, ::Product::Sku.all, :id, :composed_name, {}, { :class=>'form-control selectpicker chosen-select', :dataStyle => "btn btn-link", :id => "exampleFormControlSelect1" } ) %>
+  </div>
+
+  <div class="col-md-4 form-group">
+    <div class="align-labels">
+      <i class='material-icons'>add_circle</i><%= f.label :quantity, t('product_bundle.product_sku_quantity') %>
+    </div>
+    <%= f.number_field :quantity, min: 1, class:"form-control " %>
+  </div>
+
+  <div class="col-md-4">
+    <%= link_to_remove_association raw("<i class='material-icons'>remove_circle</i><span>#{t('bundle.remove')}</span>"), f, class: 'remove-icone-attribute-field' %>
+  </div>
+
+</div>
+
+<%= javascript_tag do %>
+  $('.chosen-select').chosen({
+    allow_single_deselect: false,
+    no_results_text: 'No results matched',
+    width: '100%'
+  });
+<% end %>

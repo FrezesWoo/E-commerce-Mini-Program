@@ -1,0 +1,9 @@
+<div class='container card'>
+  <%= form.fields_for :blocks do |block| %>
+      <%= render 'block_fields', f: block %>
+  <% end %>
+
+  <div class="links add-new-icone add-product-sku">
+    <%= link_to_add_association raw("<i class='material-icons'>add_circle</i><span>#{t('campaigns.blocks.add')}</span>"), form, :blocks %>
+  </div>
+</div>

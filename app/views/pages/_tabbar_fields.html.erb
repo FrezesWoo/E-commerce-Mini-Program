@@ -1,0 +1,59 @@
+<div class="nested-fields row all-lots">
+
+  <div class="col-md-6">
+    <%= f.label :target, t('pages.blocks.tabbars.pick_target_block') %>
+    <%= f.number_field :target, class:"form-control" %>
+  </div>
+
+  <div class="col-sm-6">
+    <%= f.label :ordering, t('pages.blocks.tabbars.ordering')  %>
+    <%= f.number_field :ordering, class:"form-control" %>
+  </div>
+
+  <div class="col-sm-4">
+    <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+      <div class="fileinput-new thumbnail img-raised">
+        <%= image_tag get_field_image(f, 'anchor_hover'), width: '100%' %>
+      </div>
+      <div class="fileinput-preview fileinput-exists thumbnail img-raised"></div>
+      <div>
+          <span class="btn btn-raised btn-round btn-default btn-file">
+              <span class="fileinput-new"> <%= t('pages.blocks.tabbars.anchor_hover_image') %></span>
+            <%= f.file_field :anchor_hover %>
+          </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-2"></div>
+
+  <div class="col-sm-4">
+    <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+      <div class="fileinput-new thumbnail img-raised">
+        <%= image_tag get_field_image(f, 'anchor_active'), width: '100%' %>
+      </div>
+      <div class="fileinput-preview fileinput-exists thumbnail img-raised"></div>
+      <div>
+          <span class="btn btn-raised btn-round btn-default btn-file">
+              <span class="fileinput-new"> <%= t('pages.blocks.tabbars.anchor_active_image') %></span>
+            <%= f.file_field :anchor_active %>
+          </span>
+      </div>
+    </div>
+  </div>
+
+  <%= render 'layouts/updated_by', form: f %>
+
+  <div class="col-sm-2">
+    <%= link_to_remove_association raw("<i class='material-icons'>remove_circle</i><span>#{t('pages.blocks.tabbars.remove')}</span>"), f, class: 'remove-attachement-attribute-field' %>
+  </div>
+
+</div>
+
+<%= javascript_tag do %>
+  $('.chosen-select').chosen({
+    allow_single_deselect: false,
+    no_results_text: 'No results matched',
+    width: '100%'
+  });
+<% end %>

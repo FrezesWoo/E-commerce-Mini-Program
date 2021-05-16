@@ -1,0 +1,2 @@
+class SmsVerification < ApplicationRecord
+end

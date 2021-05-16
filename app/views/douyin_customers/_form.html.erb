@@ -1,0 +1,47 @@
+<%= form_with(model: douyin_customer, id: 'cust-form', local: true) do |form| %>
+  <% if douyin_customer.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(douyin_customer.errors.count, "error") %> prohibited this customer from being saved:</h2>
+
+      <ul>
+      <% douyin_customer.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :gender %>
+    <%= form.number_field :gender, class:"form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :name %>
+    <%= form.text_field :name, class:"form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :open_id, t('douyin_customers.open_id') %>
+    <%= form.text_field :open_id, class:"form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :douyin_data %>
+    <%= form.text_field :douyin_data, class:"form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :email %>
+    <%= form.text_field :email, class:"form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :phone %>
+    <%= form.text_field :phone, class:"form-control" %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit t('submit'), :class => 'btn btn-primary' %>
+  </div>
+<% end %>

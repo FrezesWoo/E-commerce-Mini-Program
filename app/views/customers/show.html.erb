@@ -1,0 +1,34 @@
+<div class="page-header">
+  <h1> <%= t('customers.page_title') %> </h1>
+</div>
+
+<div class="container">
+  <div class='row'>
+    <dl>
+      <dt><%= t('customers.name') %> </dt>
+      <dd><%= @customer.name %></dd>
+      <dt><%= t('customers.gender') %> </dt>
+      <dd><%= @customer.gender %></dd>
+      <dt><%= t('customers.open_id') %> </dt>
+      <dd><%= @customer.open_id %></dd>
+      <dt><%= t('customers.union_id') %> </dt>
+      <dd><%= @customer.union_id %></dd>
+      <dt><%= t('customers.wechat_data') %> </dt>
+      <dd><%= @customer.wechat_data.to_s %></dd>
+      <dt><%= t('customers.phone') %> </dt>
+      <dd><%= @customer.phone %></dd>
+      <dt><%= t('customers.email') %> </dt>
+      <dd><%= @customer.email %></dd>
+      <dt><%= t('customers.email') %> </dt>
+      <dd><%= @customer.email %></dd>
+    </dl>
+  </div>
+</div>
+
+<div class="container page-control">
+  <%= link_to t('back'), customers_path, class: 'back' %> |
+  <% if current_user.is_editor %>
+    <%= link_to raw("<i class='material-icons'>create</i><span>#{t('edit')}</span>"), edit_customer_path(@customer) %> |
+    <%= link_to raw("<i class='material-icons'>add_circle</i><span>#{t('new')}</span>"), new_customer_path, data: { 'no-turbolink' => true} %>
+  <% end %>
+</div>

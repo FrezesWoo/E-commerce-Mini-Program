@@ -1,0 +1,6 @@
+en:
+  mp_images:
+    page_title: MpImage
+    title: MpImage
+    blocks:
+      template: Template

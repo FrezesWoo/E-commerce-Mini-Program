@@ -1,0 +1,8 @@
+zh-CN:
+  orders:
+    title: 微信小程序订单
+    sync: 重新同步OMS
+    douyin_title: 抖音小程序订单
+    no_publish: 商品已下架
+    sample_quantity_limit: 付邮试用商品数量超过限制
+    sku_quantity_limit: 限购商品数量超过限制

@@ -1,0 +1,24 @@
+<%= render 'layouts/location_navbar' %>
+
+<div class="page-header">
+  <h1> <%= t('delivery_fee.page_title') %> </h1>
+</div>
+
+<div class="container">
+  <div class='row'>
+    <dl>
+      <dt><%= t('delivery_fee.price') %></dt>
+      <dd><%= @delivery_fee.price %></dd>
+      <dt><%= t('delivery_fee.provinces') %></dt>
+      <dd><%= @delivery_fee.country_provinces_delivery_fees.map{ |item| item.country_province.name }.join(', ') %></dd>
+    </dl>
+  </div>
+</div>
+
+<div class="container page-control">
+  <%= link_to t('back'), delivery_fees_path, class: 'back' %> |
+  <% if current_user.is_editor %>
+    <%= link_to raw("<i class='material-icons'>create</i><span>#{t('edit')}</span>"), edit_delivery_fee_path(@delivery_fee) %> |
+    <%= link_to raw("<i class='material-icons'>add_circle</i><span>#{t('new')}</span>"), new_delivery_fee_path, data: { 'no-turbolink' => true} %>
+  <% end %>
+</div>

@@ -1,0 +1,28 @@
+<%= render 'layouts/product_navbar' %>
+
+<div class="page-header">
+  <h1> <%= t('product_pakages.page_title') %> </h1>
+</div>
+
+<div class="container">
+  <div class='row'>
+    <dl>
+      <dt><%= t('product_packages.name') %></dt>
+      <dd><%= @product_package.name %></dd>
+      <dt><%= t('product_packages.description') %></dt>
+      <dd><%= @product_package.description %></dd>
+      <dt><%= t('product_packages.image') %></dt>
+      <dd><%= image_tag @product_package.image.url, class: 'view-image' %></dd>
+      <dt><%= t('product_packages.created_at') %></dt>
+      <dd><%= @product_package.created_at %></dd>
+    </dl>
+  </div>
+</div>
+
+<div class="container page-control">
+  <%= link_to t('back'), product_packages_path, class: 'back' %> |
+  <% if current_user.is_editor %>
+    <%= link_to raw("<i class='material-icons'>create</i><span>#{t('edit')}</span>"), edit_product_package_path(@product_package) %> |
+    <%= link_to raw("<i class='material-icons'>add_circle</i><span>#{t('new')}</span>"), new_product_package_path, data: { 'no-turbolink' => true} %>
+  <% end %>
+</div>

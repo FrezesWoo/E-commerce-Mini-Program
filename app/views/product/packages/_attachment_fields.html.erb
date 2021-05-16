@@ -1,0 +1,35 @@
+<div class="nested-fields row">
+
+  <div class="attachment-attribute-label col-4">
+    <%= f.label :file, '<i class="material-icons" style="font-size:40px;color:#9c27b0;">cloud_download</i>'.html_safe %>
+    <%= f.file_field :file %>
+  </div>
+
+  <div class="attachment-attribute-label col-4">
+    <% if !f.object.file.url.include?'missing' %>
+      <%= image_tag f.object.file.url(:thumb) %>
+    <% end %>
+  </div>
+
+  <div class="col-4 form-check">
+    <label class="form-check-label">
+      <%= f.label :display %>
+      <%= f.check_box :display, class: 'form-check-input' -%>
+      <span class="form-check-sign">
+          <span class="check"></span>
+      </span>
+    </label>
+  </div>
+
+  <div class="col-4">
+    <%= f.label :ordering, t('attachements.order') %>
+    <%= f.number_field :ordering, class:"form-control" %>
+  </div>
+
+  <%= render 'layouts/updated_by', form: f %>
+
+  <div class="col-12">
+    <%= link_to_remove_association raw("<i class='material-icons'>remove_circle</i><span>#{t('attachements.remove')}</span>"), f, class: 'remove-icone-attribute-field' %>
+  </div>
+
+</div>

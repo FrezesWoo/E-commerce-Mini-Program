@@ -1,0 +1,17 @@
+<%= render 'layouts/location_navbar' %>
+
+<h1><%= t('country_province.edit') %> </h1>
+
+<div class="container">
+  <div class='row'>
+    <%= render 'form', country_province: @country_province %>
+  </div>
+</div>
+
+<div class="container page-control">
+  <%= link_to t('back'), country_provinces_path, class: 'back' %> |
+  <%= link_to raw("<i class='material-icons'>visibility</i><span>#{t('show')}</span>"), @country_province %> |
+  <% if current_user.is_editor %>
+    <%= link_to raw("<i class='material-icons'>add_circle</i><span>#{t('page_blocks.new')}</span>"), new_country_province_path, data: { 'no-turbolink' => true} %>
+  <% end %>
+</div>

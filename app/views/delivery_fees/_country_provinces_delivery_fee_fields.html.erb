@@ -1,0 +1,12 @@
+<div class="nested-fields row">
+
+  <div class="form-group">
+    <%= f.label :country_province_id, t('country_province.country') %>
+    <%= f.collection_select(:country_province_id, Country::Province.all, :id, :name, {}, {:class=>'form-control selectpicker', :dataStyle => "btn btn-link", :id => "exampleFormControlSelect1" } ) %>
+  </div>
+
+  <div class="col-md-4">
+    <%= link_to_remove_association raw("<i class='material-icons'>remove_circle</i><span>#{t('page_blocks.blocks.products.remove')}</span>"), f, class: 'remove-attachement-attribute-field' %>
+  </div>
+
+</div>

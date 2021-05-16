@@ -1,0 +1,12 @@
+zh-CN:
+  coupons:
+    page_title: 券码
+    title: 券码
+    new: 新增
+    listing: 券码列表
+    download: Download List of Coupons
+    product_skus: 选择赠品
+    invalid_coupon: 优惠码已失效.
+    used_coupon: 优惠码已使用.
+    coupon_price_limit: 该订单未达到指定金额.
+    coupon_product_limit: 该订单未包含指定产品.

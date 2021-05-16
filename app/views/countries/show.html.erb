@@ -1,0 +1,30 @@
+<%= render 'layouts/location_navbar' %>
+
+<div class="page-header">
+  <h1> <%= t('countries.page_title') %> </h1>
+</div>
+
+<div class="container">
+  <div class='row'>
+    <dl>
+      <dt><%= t('countries.name') %></dt>
+      <dd><%= @country.name %></dd>
+      <dt><%= t('countries.latitude') %></dt>
+      <dd><%= @country.latitude %></dd>
+      <dt><%= t('countries.longitude') %></dt>
+      <dd><%= @country.longitude %></dd>
+      <dt><%= t('countries.created_at') %></dt>
+      <dd><%= @country.created_at %></dd>
+      <dt><%= t('countries.updated_at') %></dt>
+      <dd><%= @country.updated_at %></dd>
+    </dl>
+  </div>
+</div>
+
+<div class="container page-control">
+  <%= link_to t('back'), country_provinces_path, class: 'back' %> |
+  <% if current_user.is_editor %>
+    <%= link_to raw("<i class='material-icons'>create</i><span>#{t('edit')}</span>"), edit_country_path(@country) %> |
+    <%= link_to raw("<i class='material-icons'>add_circle</i><span>#{t('new')}</span>"), new_country_path, data: { 'no-turbolink' => true} %>
+  <% end %>
+</div>

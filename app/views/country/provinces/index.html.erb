@@ -1,0 +1,51 @@
+<%= render 'layouts/location_navbar' %>
+
+<div class="page-header">
+  <h1> <%= t('country_provinces.listing') %> </h1>
+  <% if current_user.is_editor %>
+    <div class="new-item">
+      <%= link_to raw("<i class='material-icons'>add_circle</i><span>#{t('new')}</span>"), new_country_province_path, data: { 'no-turbolink' => true} %>
+    </div>
+  <% end %>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-fixed table-white table-hover">
+    <thead>
+      <th width="20%"> <%=  t('country_provinces.name') %> </th>
+      <th width="20%"> <%=  t('country_provinces.country') %> </th>
+      <th width="20%"> <%=  t('country_provinces.created_at') %> </th>
+      <th width="20%"> <%=  t('country_provinces.updated_at') %> </th>
+        <th width="6.6%"> <%= t('show')%> </th>
+      <% if current_user.is_editor %>
+        <th width="6.6%"> <%= t('edit')%> </th>
+        <th width="6.6%"> <%= t('delete')%> </th>
+      <% end %>
+    </thead>
+    <tbody>
+      <% @country_provinces.each do |country_province|%>
+        <tr>
+          <td width="20%"><%= country_province.name %> </td>
+          <td width="20%"><%= country_province.country && country_province.country.name %></td>
+          <td width="20%"><%= country_province.created_at %> </td>
+          <td width="20%"><%= country_province.updated_at %> </td>
+          <td width="6.6%"><i class="material-icons small">visibility</i><%= link_to t('show'), country_province %></td>
+          <% if current_user.is_editor  %>
+            <td width="6.6%"><i class="material-icons small">create</i><%= link_to t('edit'), edit_country_province_path(country_province) %></td>
+            <td width="6.6%"><i class="material-icons small">clear</i><%= link_to t('delete'), country_province, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+
+<div class="digg_pagination">
+  <div class="page_info">
+    <%= page_entries_info @country_provinces %>
+  </div>
+</div>
+<nav aria-label="Page navigation example">
+  <%= will_paginate(@country_provinces, :renderer => RemoteLinkPagination::LinkRenderer) %>
+</nav>

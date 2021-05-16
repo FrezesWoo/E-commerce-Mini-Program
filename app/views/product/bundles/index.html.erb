@@ -1,0 +1,47 @@
+<div class="page-header">
+  <h1> <%= t('product_bundles.listing') %> </h1>
+  <% if current_user.is_editor %>
+    <div class="new-item">
+      <%= link_to raw("<i class='material-icons'>add_circle</i><span>#{t('new')}</span>"), new_product_bundle_path %>
+    </div>
+  <% end %>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-fixed table-white table-hover">
+    <thead>
+      <th width="25%"> <%=  t('product_bundles.name') %> </th>
+      <th width="25%"> <%=  t('product_bundles.created_at') %> </th>
+      <th width="25%"> <%=  t('product_bundles.updated_at') %> </th>
+      <th width="6.6%"> <%= t('show')%> </th>
+      <% if current_user.is_editor %>
+        <th width="6.6%"> <%= t('edit')%> </th>
+        <th width="6.6%"> <%= t('delete')%> </th>
+      <% end %>
+    </thead>
+    <tbody>
+      <% @product_bundles.each do |product_bundle|%>
+        <tr>
+          <td width="25%"><%= product_bundle.name %> </td>
+          <td width="25%"><%= product_bundle.created_at %> </td>
+          <td width="25%"><%= product_bundle.updated_at %> </td>
+          <td width="6.6%"><i class="material-icons small">visibility</i><%= link_to t('show'), product_bundle %></td>
+          <% if current_user.is_editor  %>
+            <td width="6.6%"><i class="material-icons small">create</i><%= link_to t('edit'), edit_product_bundle_path(product_bundle) %></td>
+            <td width="6.6%"><i class="material-icons small">clear</i><%= link_to t('delete'), product_bundle, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+
+<div class="digg_pagination">
+  <div class="page_info">
+    <%= page_entries_info @product_bundles %>
+  </div>
+</div>
+<nav aria-label="Page navigation example" class="pagination-paginate">
+  <%= will_paginate(@product_bundles, :renderer => RemoteLinkPagination::LinkRenderer) %>
+</nav>

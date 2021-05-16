@@ -1,0 +1,49 @@
+<div class="page-header">
+  <h1> <%= t('pages.listing') %> </h1>
+  <% if current_user.is_editor %>
+    <div class="new-item">
+      <%= link_to raw("<i class='material-icons'>add_circle</i><span>#{t('new')}</span>"), new_page_path %>
+    </div>
+  <% end %>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-fixed table-white table-hover">
+    <thead>
+      <th width="20%"> <%=  t('pages.name') %> </th>
+      <th width="20%"> <%=  t('pages.template') %> </th>
+      <th width="20%"> <%=  t('pages.created_at') %> </th>
+      <th width="20%"> <%=  t('pages.updated_at') %> </th>
+      <th width="6.6%"> <%= t('show')%> </th>
+      <% if current_user.is_editor %>
+        <th width="6.6%"> <%= t('edit')%> </th>
+        <th width="6.6%"> <%= t('delete')%> </th>
+      <% end %>
+    </thead>
+    <tbody>
+      <% @pages.each do |page|%>
+        <tr>
+          <td width="20%"><%= page.name %> </td>
+          <td width="20%"><%= page.template %></td>
+          <td width="20%"><%= page.created_at %> </td>
+          <td width="20%"><%= page.updated_at %> </td>
+          <td width="6.6%"><%= link_to raw('<i class="material-icons medium">visibility</i>'), page %></td>
+          <% if current_user.is_editor  %>
+            <td width="6.6%"><%= link_to raw('<i class="material-icons medium">create</i>'), edit_page_path(page) %></td>
+            <td width="6.6%"><%= link_to raw('<i class="material-icons medium">clear</i>'), page, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+
+<div class="digg_pagination">
+  <div class="page_info">
+    <%= page_entries_info @pages %>
+  </div>
+</div>
+<nav aria-label="Page navigation example" class="pagination-paginate">
+  <%= will_paginate(@pages, :renderer => RemoteLinkPagination::LinkRenderer) %>
+</nav>

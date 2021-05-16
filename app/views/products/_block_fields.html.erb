@@ -1,0 +1,111 @@
+<div class="nested-fields row single-block">
+
+  <div class="col-sm-6 form-group">
+    <%= f.label :template, t('products.template') %>
+    <%= f.select :template, ::Product::Block.templates.keys.to_a, {:prompt => 'Select a template'}, { :class => "form-control selectpicker select-product-block-template #{f.index}", :id => "exampleFormControlSelect1", :"data-style" => "btn btn-link" } %>
+  </div>
+
+  <div class="col-sm-6 form-group">
+    <%= f.label :ordering, t('products.ordering') %>
+    <%= f.number_field :ordering, class:"form-control" -%>
+  </div>
+
+  <div class="col-sm-12 hidden-fields <%= all_classes(['image'], f.object.template) %>">
+
+    <div class="row">
+
+      <div class="col-sm-4"></div>
+
+      <div class="col-sm-4">
+        <%= render 'layouts/simple_upload', form: f %>
+      </div>
+
+      <div class="col-sm-4"></div>
+
+    </div>
+
+  </div>
+
+  <div class="col-sm-12 hidden-fields <%= all_classes(['video'], f.object.template) %>">
+
+    <div class="row">
+
+      <div class="col-sm-2"></div>
+
+      <div class="attachment-attribute-label col-sm-4">
+        <div class="align-labels">
+          <i class="material-icons">cloud_download</i><%= f.label :video, t('products.video')  %>
+        </div>
+        <%= f.file_field :video %>
+      </div>
+
+      <div class="attachment-attribute-label col-sm-4">
+        <% if !f.object.video.url.include?'missing' %>
+          <%= video_tag f.object.video.url, :controls => true, class: 'video-reader-thumb' %>
+        <% end %>
+      </div>
+
+      <div class="col-sm-2"></div>
+
+    </div>
+
+  </div>
+
+  <div class="col-sm-12 hidden-fields <%= all_classes(['link'], f.object.template) %>">
+
+    <div class="row">
+
+      <div class="col-sm-2"></div>
+
+      <div class="col-sm-8">
+        <%= f.label :link, t('products.link')%>
+        <%= f.text_field :link, class:"form-control" %>
+      </div>
+
+      <div class="col-sm-2"></div>
+
+    </div>
+
+  </div>
+
+  <div class="col-sm-12">
+
+    <div class="row">
+
+      <div class="col-sm-3">
+        <%= f.label :link_height, t('products.height') %>
+        <%= f.number_field :link_height, class:"form-control" -%>
+      </div>
+
+      <div class="col-sm-3">
+        <%= f.label :link_width, t('products.width') %>
+        <%= f.number_field :link_width, class:"form-control" -%>
+      </div>
+
+      <div class="col-sm-3">
+        <%= f.label :x_position, t('products.x_position') %>
+        <%= f.number_field :x_position, class:"form-control" -%>
+      </div>
+
+      <div class="col-sm-3">
+        <%= f.label :y_position, t('products.y_position') %>
+        <%= f.number_field :y_position, class:"form-control" -%>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="col-sm-4">
+    <%= link_to_remove_association raw("<i class='material-icons'>remove_circle</i><span>#{t('campaigns.blocks.remove')}</span>"), f, class: 'remove-icone-attribute-field' %>
+  </div>
+
+</div>
+
+<%= javascript_tag do %>
+  $('.chosen-select').chosen({
+    allow_single_deselect: false,
+    no_results_text: 'No results matched',
+    width: '100%'
+  });
+<% end %>

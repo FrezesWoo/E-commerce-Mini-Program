@@ -1,0 +1,17 @@
+en:
+  skus:
+    title: Product Sku
+    price: Price
+    shipping_price: Shipping Price
+    choose_product: Choose a Product
+    currency: Currency
+    descriptions: Description
+    composition: Composition
+    limited_product:
+      name: Limited Product
+      setting: Limited Product Setting
+      limit_start_date: Limited Start Date
+      limit_end_date: Limited End Date
+    product_attribute:
+      name: Product Attribute
+      order: Order

@@ -1,0 +1,72 @@
+<%= render 'layouts/product_navbar' %>
+
+<div class="page-header">
+  <h1>  <%= t('skus.listing') %> </h1>
+  <% if current_user.is_editor %>
+    <div class="new-item">
+      <%= link_to raw("<i class='material-icons'>add_circle</i><span>#{t('new')}</span>"), new_product_sku_path %>
+    </div>
+  <% end %>
+</div>
+
+<div class="container">
+  <%= form_tag("/product_skus", class: 'row',  method: "get") do %>
+    <div class="form-group col-sm-9">
+      <%= search_field_tag(:name, params[:name], placeholder: "请输入名字...", class:"form-control")%>
+    </div>
+    <div class="form-group col-sm-3">
+      <%= submit_tag(t('search'),:class => 'btn btn-primary') %>
+    </div>
+  <% end %>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-fixed table-white table-hover">
+    <thead>
+      <th width="10%"> <%=  t('skus.sku_name') %> </th>
+      <th width="10%"> <%=  t('skus.product') %> </th>
+      <th width="5%"> <%=  t('skus.price') %> </th>
+      <th width="14%"> <%=  t('skus.sku') %> </th>
+      <th width="8%"> <%=  t('skus.wechat_quantity') %> </th>
+      <th width="8%"> <%=  t('skus.wechat_available_quantity') %> </th>
+      <th width="10%"> <%=  t('skus.douyin_quantity') %> </th>
+      <th width="10%"> <%=  t('skus.available_douyin_quantity') %> </th>
+      <th width="10%"> <%=  t('skus.shipping_price') %> </th>
+      <th width="5%"> <%= t('show')%> </th>
+      <% if current_user.is_editor %>
+        <th width="5%"> <%= t('edit')%> </th>
+        <th width="5%"> <%= t('delete')%> </th>
+      <% end %>
+    </thead>
+    <tbody>
+      <% @skus.each do |sku|%>
+        <tr>
+          <td width="10%"><%= sku.name %> </td>
+          <td width="10%"><%= sku.product.name %> </td>
+          <td width="5%"><%= sku.price %> </td>
+          <td width="14%"><%= sku.sku %> </td>
+          <td width="8%"><%= sku.quantity %> </td>
+          <td width="8%"><%= sku.available_quantity %> </td>
+          <td width="10%"><%= sku.douyin_quantity %> </td>
+          <td width="10%"><%= sku.available_douyin_quantity %> </td>
+          <td width="10%"><%= sku.shipping_price %> </td>
+          <td width="5%"><i class="material-icons small">visibility</i><%= link_to t('show'), sku %></td>
+          <% if current_user.is_editor  %>
+            <td width="5%"><i class="material-icons small">create</i><%= link_to t('edit'), edit_product_sku_path(sku) %></td>
+            <td width="5%"><i class="material-icons small">clear</i><%= link_to t('delete'), sku, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+
+<div class="digg_pagination">
+  <div class="page_info">
+    <%= page_entries_info @skus %>
+  </div>
+</div>
+<nav aria-label="Page navigation example" class="pagination-paginate">
+  <%= will_paginate(@skus, :renderer => RemoteLinkPagination::LinkRenderer) %>
+</nav>

@@ -1,0 +1,35 @@
+<div class="page-header">
+  <h1> <%= t('lucky_draws.code') %> </h1>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-fixed table-white table-hover">
+    <thead>
+      <th width="25%"> <%=  t('lucky_draws.code') %> </th>
+      <th width="25%"> <%=  t('lucky_draws.code_status') %> </th>
+      <th width="25%"> <%=  t('lucky_draws.created_at') %> </th>
+      <th width="25%"> <%=  t('lucky_draws.updated_at') %> </th>
+    </thead>
+    <tbody>
+      <% @lucky_draw_prize_codes.each do |code|%>
+        <tr>
+          <td width="25%"><%= code.coupon_code %> </td>
+          <td width="25%"><%= code.coupon_status == true ? '已使用' : "未使用" %> </td>
+          <td width="25%"><%= code.created_at %> </td>
+          <td width="25%"><%= code.updated_at %> </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<div class="digg_pagination">
+  <div class="page_info">
+    <%= page_entries_info @lucky_draw_prize_codes %>
+  </div>
+</div>
+<nav aria-label="Page navigation example" class="pagination-paginate">
+  <%= will_paginate(@lucky_draw_prize_codes, :renderer => RemoteLinkPagination::LinkRenderer) %>
+</nav>
+
+<div class="container page-control"><%= link_to t('back'), lucky_draw_prizes_path, class: 'back' %></div>

@@ -1,0 +1,110 @@
+<%= form_with(model: sku, id: 'cust-form', local: true, class: 'row') do |form| %>
+  <% if sku.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(sku.errors.count, "error") %> prohibited this sku from being saved:</h2>
+
+      <ul>
+      <% sku.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group col-4">
+    <%= form.label :name, t('skus.name')  %>
+    <%= form.text_field :name, class:"form-control"  %>
+  </div>
+
+  <div class="form-group col-4">
+    <%= form.label :sku, t('skus.sku')  %>
+    <%= form.text_field :sku, class:"form-control"  %>
+  </div>
+
+  <div class="form-group col-4">
+    <%= form.label :ordering, t('skus.ordering')  %>
+    <%= form.number_field :ordering, class:"form-control"  %>
+  </div>
+
+  <div class="form-group col-4">
+    <%= form.label :price, t('skus.price')  %>
+    <%= form.number_field :price, class:"form-control"  %>
+  </div>
+
+  <div class="form-group col-4">
+    <div class="align-labels">
+      <i class='material-icons'>category</i><%= form.label :product_id, t('skus.choose_product') %>
+    </div>
+    <%= form.collection_select(:product_id, Product.all, :id, :name, {}, {:class=>'form-control selectpicker chosen-select', :dataStyle => "btn btn-link", :id => "exampleFormControlSelect1" } ) %>
+  </div>
+
+  <div class="col-sm-4 form-check">
+    <label class="form-check-label">
+      <%= form.label :limited_product, t('skus.limited_product.name') %>
+      <%= form.check_box :limited_product, class: 'form-check-input limited_product' %>
+      <span class="form-check-sign">
+          <span class="check"></span>
+      </span>
+    </label>
+  </div>
+
+<!--  <div class="form-group col-6">-->
+    <%#= form.label :description, t('skus.descriptions')  %>
+    <%#= form.cktext_area :description, cols: 40,  ckeditor: { uiColor: '#AADC6E' } %>
+<!--  </div>-->
+
+<!--  <div class="form-group col-6">-->
+    <%#= form.label :composition, t('skus.composition')  %>
+    <%#= form.cktext_area :composition, cols: 40,  ckeditor: { uiColor: '#AADC6E' } %>
+<!--  </div>-->
+
+  <div class="col-md-12">
+    <%= render 'product_product_attributes', form: form %>
+  </div>
+
+  <div class="col-md-12 form-group hidden-fields product_sku_limits">
+    <%= render 'product_sku_limits', form: form %>
+  </div>
+
+  <div class="col-sm-4"></div>
+  <div class="col-sm-4">
+    <%= render 'layouts/simple_upload', form: form %>
+  </div>
+  <div class="col-sm-4"></div>
+
+  <%= render 'layouts/updated_by', form: form %>
+
+  <div class="form-group col-4">
+    <%= form.label :quantity, t('skus.quantity')  %>
+    <%= form.number_field :quantity, class:"form-control", readonly: true %>
+  </div>
+
+  <div class="form-group col-4">
+    <%= form.label :douyin_quantity, t('skus.douyin_quantity')  %>
+    <%= form.number_field :douyin_quantity, class:"form-control", readonly: true %>
+  </div>
+
+  <div class="submission">
+    <div class="actions">
+      <%= form.submit t('submit'), :class => 'btn btn-primary btn-round submit' %>
+      <%= link_to t('back'), product_skus_path, :class => 'btn btn-primary btn-warning cancel' %>
+      <% if !@sku.new_record? %> <%= link_to raw('<i class="material-icons medium">restore_from_trash</i>'), @sku, method: :delete, data: { confirm: 'Are you sure?' }, class: 'delete-article'  %> <% end %>
+    </div>
+  </div>
+<% end %>
+
+<%= javascript_tag do %>
+  $('.chosen-select').chosen({
+    allow_single_deselect: false,
+    no_results_text: 'No results matched',
+    width: '100%'
+  });
+
+  $(document).ready(function() {
+    $('.limited_product').is(':checked') ? $('.product_sku_limits').show() : $('.product_sku_limits').hide()
+  })
+
+  $(document).on('change', '.limited_product', function() {
+    $(this).is(':checked') ? $('.product_sku_limits').show() : $('.product_sku_limits').hide()
+  })
+<% end %>

@@ -1,0 +1,12 @@
+en:
+  pages:
+    page_title: Page Listing
+    title: Page
+    blocks:
+      template: Template
+      slides:
+        link_type: Link Type
+      tabbars:
+        title: Anchor Navigation Bar
+        anchor_hover_image: Anchor Hover Image
+        anchor_active_image: Anchor Active Image

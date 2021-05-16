@@ -1,0 +1,43 @@
+<div class="nested-fields row single-block">
+
+  <div class="col-sm-6 form-group">
+    <%= f.label :mp_link_id, t('campaigns.blocks.link') %>
+    <%= f.collection_select(:mp_link_id, ::MpLink.all, :id, :name, {:prompt => 'Select a link'}, {:class=>'form-control chosen-select select-campaign-block-link', :dataStyle => "btn btn-link", :id => "exampleFormControlSelect1"} ) %>
+  </div>
+
+  <div class="col-sm-6 form-group hidden-field-products <%= all_classes([@product_link.id], f.object.mp_link) %>">
+    <%= f.label :product_id, t('campaigns.blocks.product') %>
+    <%= f.collection_select(:product_id, ::Product.all, :id, :name, {:prompt => 'Select a Product'}, {:class=>'form-control chosen-select', :dataStyle => "btn btn-link", :id => "exampleFormControlSelect1"} ) %>
+  </div>
+
+  <div class="col-sm-6 form-group hidden-field-products <%= all_classes([@product_package_link.id], f.object.mp_link) %>">
+    <%= f.label :product_package_id, t('campaigns.blocks.product_package') %>
+    <%= f.collection_select(:product_package_id, ::Product::Package.all, :id, :name, {:prompt => 'Select a Product Package'}, {:class=>'form-control chosen-select', :dataStyle => "btn btn-link", :id => "exampleFormControlSelect1"} ) %>
+  </div>
+
+  <div class="col-sm-12 form-group">
+
+    <div class="row">
+
+      <div class="col-sm-4"></div>
+
+      <div class="col-sm-4">
+        <%= render 'layouts/simple_upload', form: f %>
+      </div>
+
+      <div class="col-sm-4"></div>
+
+    </div>
+
+  </div>
+
+  <div class="col-sm-3 form-group">
+    <%= f.label :ordering, t('campaigns.blocks.ordering') %>
+    <%= f.number_field :ordering, class:"form-control" -%>
+  </div>
+
+  <div class="col-sm-3 block_remove">
+    <%= link_to_remove_association raw("<i class='material-icons'>remove_circle</i><span>#{t('campaigns.blocks.remove')}</span>"), f, class: 'remove-icone-attribute-field' %>
+  </div>
+
+</div>

@@ -1,0 +1,44 @@
+<div class="page-header">
+  <h1>  <%=  t('user.listing') %> </h1>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-fixed table-white table-hover">
+    <thead>
+      <th width="13%"> <%=  t('user.name') %> </th>
+      <th width="9%"> <%=  t('user.role') %> </th>
+      <th width="17%"> <%=  t('user.phone') %> </th>
+      <th width="21%"> <%=  t('user.email') %> </th>
+      <th width="13%"> <%=  t('user.created_at') %> </th>
+      <th width="13%"> <%=  t('user.updated_at') %> </th>
+      <% if current_user.is_admin %>
+        <th width="7%"> <%=  t('modify')%> </th>
+        <th width="7%">
+          <%= link_to image_tag("add.png", class:"add-icon"),
+          {:controller => :users, :action => 'new', :id => ( @users.length + 1 ) }   %>
+        </th>
+      <% end %>
+    </thead>
+    <tbody>
+      <% @users.each do |user|%>
+        <tr>
+          <td width="13%"><%= user.name %> </td>
+          <td width="9%">
+            <%=  user.user_role && user.user_role.name %>
+          </td>
+          <td width="17%"><%= user.phone %> </td>
+          <td width="21%"><%= user.email %> </td>
+          <td width="13%"><%= user.created_at %> </td>
+          <td width="13%"><%= user.updated_at %> </td>
+          <% if current_user.is_admin  %>
+            <td width="7%">
+              <%= link_to image_tag("edit.png", class:"edit-icon"),
+                {:controller => :users, :action => 'edit', :id => user.id } %>
+            </td>
+            <td width="7%">  </td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

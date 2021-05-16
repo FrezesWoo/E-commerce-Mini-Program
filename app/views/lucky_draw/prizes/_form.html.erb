@@ -1,0 +1,71 @@
+<%= form_with(model: lucky_draw_prize, id: 'cust-form',  local: true, class: 'row') do |form| %>
+  <% if lucky_draw_prize.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(lucky_draw_prize.errors.count, "error") %> prohibited this product_bundle from being saved:</h2>
+
+      <ul>
+      <% lucky_draw_prize.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group col-sm-6">
+    <%= form.label :name, t('lucky_draws.name') %>
+    <%= form.text_field :name, class:"form-control" %>
+  </div>
+
+  <div class="form-group col-sm-3">
+    <%= form.label :prize_type, t('lucky_draws.type') %>
+    <%= form.select :prize_type, options_for_select(::LuckyDraw::Prize.prize_types.keys.to_a, @lucky_draw_prize.prize_type), {}, { :class => "form-control selectpicker chosen-select", :id => "exampleFormControlSelect1", :"data-style" => "btn btn-link" } %>
+  </div>
+
+  <div class="form-group col-sm-3">
+    <div class="align-labels">
+      <i class='material-icons'>spa</i><%= form.label :product_package_id, t('lucky_draws.package') %>
+    </div>
+    <%= form.collection_select(:product_package_id, ::Product::Package.all, :id, :composed_name, {}, { :class=>'form-control selectpicker chosen-select', :dataStyle => "btn btn-link", :id => "exampleFormControlSelect1" } ) %>
+  </div>
+
+  <div class="form-group  col-sm-6">
+    <%= form.label :quantity, t('lucky_draws.quantity')  %>
+    <%= form.number_field :quantity, min: 1, class:"form-control" %>
+  </div>
+
+  <div class="form-check col-sm-3">
+    <label class="form-check-label">
+      <%= form.label :sample_prize, t('lucky_draws.sample_prize') %>
+      <%= form.check_box :sample_prize, class: 'form-check-input' %>
+      <span class="form-check-sign">
+            <span class="check"></span>
+        </span>
+    </label>
+  </div>
+
+  <div class="form-check col-sm-3">
+    <label class="form-check-label">
+      <%= form.label :status, t('lucky_draws.status') %>
+      <%= form.check_box :status, class: 'form-check-input' %>
+      <span class="form-check-sign">
+            <span class="check"></span>
+        </span>
+    </label>
+  </div>
+
+  <div class="submission">
+    <div class="actions">
+      <%= form.submit t('submit'), :class => 'btn btn-primary btn-round submit' %>
+      <%= link_to t('back'), lucky_draw_prizes_path, :class => 'btn btn-primary btn-warning cancel' %>
+      <% if !@lucky_draw_prize.new_record? %> <%= link_to raw('<i class="material-icons medium">restore_from_trash</i>'), @lucky_draw_prize, method: :delete, data: { confirm: 'Are you sure?' }, class: 'delete-article'  %> <% end %>
+    </div>
+  </div>
+<% end %>
+
+<%= javascript_tag do %>
+  $('.chosen-select').chosen({
+    allow_single_deselect: false,
+    no_results_text: 'No results matched',
+    width: '100%'
+  });
+<% end %>

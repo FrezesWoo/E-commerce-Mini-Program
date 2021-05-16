@@ -1,0 +1,32 @@
+<%= form_with(model: gift_card, id: 'cust-form', local: true) do |form| %>
+  <% if gift_card.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(gift_card.errors.count, "error") %> prohibited this gift_card from being saved:</h2>
+
+      <ul>
+      <% gift_card.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="attachment-attribute-label col-md-6">
+    <div class="align-labels">
+      <i class="material-icons">cloud_download</i><%= form.label :image, t('gift_cards.image')  %>
+    </div>
+    <%= form.file_field :image %>
+  </div>
+
+  <div class="form-group col-md-6 attachment">
+    <% if !form.object.image.url.include?'missing' %>
+      <%= image_tag form.object.image.url %>
+    <% end %>
+  </div>
+
+  <%= render 'layouts/updated_by', form: form %>
+
+  <div class="actions">
+    <%= form.submit t('submit'), :class => 'btn btn-primary' %>
+  </div>
+<% end %>

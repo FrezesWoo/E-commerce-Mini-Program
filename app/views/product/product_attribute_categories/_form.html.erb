@@ -1,0 +1,28 @@
+<%= form_with(model: product_attribute_category, id: 'cust-form', local: true) do |form| %>
+  <% if product_attribute_category.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(product_attribute_category.errors.count, "error") %> prohibited this product_attribute_cateogry from being saved:</h2>
+
+      <ul>
+      <% product_attribute_category.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :name, t('product_attribute_categories.title') %>
+    <%= form.text_field :name, class:"form-control" %>
+  </div>
+
+  <%= render 'layouts/updated_by', form: form %>
+
+  <div class="submission">
+    <div class="actions">
+      <%= form.submit t('submit'), :class => 'btn btn-primary btn-round submit' %>
+      <%= link_to t('back'), product_product_attribute_categories_path, :class => 'btn btn-primary btn-warning cancel' %>
+      <% if !@product_attribute_category.new_record? %> <%= link_to raw('<i class="material-icons medium">restore_from_trash</i>'), @product_attribute_category, method: :delete, data: { confirm: 'Are you sure?' }, class: 'delete-article'  %> <% end %>
+    </div>
+  </div>
+<% end %>

@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<%= link_to 'Edit', edit_coupon_path(@coupon) %> |
+<%= link_to 'Back', coupons_path %>
+
+
+<div class="page-header">
+  <h1> <%= t('coupons.page_title') %> </h1>
+</div>
+
+<div class="container">
+  <div class='row'>
+    <dl>
+      <dt><%= t('coupons.code') %></dt>
+      <dd><%= @coupon.code %></dd>
+      <dt><%= t('coupons.condition') %></dt>
+      <dd><%= @coupon.condition %></dd>
+      <dt><%= t('coupons.price_condition') %></dt>
+      <dd><%= @coupon.price_condition %></dd>
+      <dt><%= t('coupons.product_condition') %></dt>
+      <dd><%= @coupon.coupon_product %></dd>
+      <dt><%= t('coupons.expiry_start_date') %></dt>
+      <dd><%= @coupon.expiry_start_date %></dd>
+      <dt><%= t('coupons.expiry_end_date') %></dt>
+      <dd><%= @coupon.expiry_end_date %></dd>
+      <dt><%= t('coupons.created_at') %></dt>
+      <dd><%= @coupon.created_at %></dd>
+      <dt><%= t('coupons.updated_at') %></dt>
+      <dd><%= @coupon.updated_at %></dd>
+    </dl>
+  </div>
+</div>
+
+<div class="container page-control">
+  <%= link_to t('back'), coupons_path, class: 'back' %> |
+  <% if current_user.is_editor %>
+    <%= link_to raw("<i class='material-icons'>create</i><span>#{t('coupons.edit')}</span>"), edit_coupon_path(@coupon) %> |
+    <%= link_to raw("<i class='material-icons'>add_circle</i><span>#{t('coupons.new')}</span>"), new_coupon_path, data: { 'no-turbolink' => true} %>
+  <% end %>
+</div>

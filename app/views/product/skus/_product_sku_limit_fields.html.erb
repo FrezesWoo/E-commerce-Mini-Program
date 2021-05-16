@@ -1,0 +1,22 @@
+<div class="nested-fields row">
+
+  <div class="form-group col-md-4">
+    <%= f.label :limit_start_date, t('skus.limited_product.limit_start_date') %>
+    <%= f.datetime_select :limit_start_date, class:"form-control" %>
+  </div>
+
+  <div class="form-group col-md-4">
+    <%= f.label :limit_end_date, t('skus.limited_product.limit_end_date') %>
+    <%= f.datetime_select :limit_end_date, class:"form-control" %>
+  </div>
+
+  <div class="form-group col-md-2">
+    <%= f.label :quantity, t('skus.limited_product.quantity') %>
+    <%= f.number_field :quantity, class:"form-control"  %>
+  </div>
+
+  <div class="col-md-2">
+    <%= link_to_remove_association raw("<i class='material-icons'>remove_circle</i><span>#{t('sku.limited_product.remove')}</span>"), f, class: 'remove-icone-attribute-field' %>
+  </div>
+
+</div>

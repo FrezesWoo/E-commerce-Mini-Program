@@ -1,0 +1,42 @@
+<%= render 'layouts/product_navbar' %>
+
+<div class="page-header">
+  <h1> <%= t('skus.page_title') %> </h1>
+</div>
+
+<div class="container">
+  <div class='row'>
+    <dl>
+      <dt><%= t('skus.price') %> </dt>
+      <dd><%= @sku.price %></dd>
+      <dt><%= t('skus.shipping_price') %> </dt>
+      <dd><%= @sku.shipping_price %></dd>
+      <dt><%= t('skus.product') %> </dt>
+      <dd><%= @sku.product && @sku.product.name %></dd>
+      <dt><%= t('skus.currency') %> </dt>
+      <dd><%= @sku.currency %></dd>
+      <dt><%= t('skus.sku') %> </dt>
+      <dd><%= @sku.sku %></dd>
+      <dt><%= t('skus.quantity') %> </dt>
+      <dd><%= @sku.quantity %></dd>
+      <dt><%= t('skus.available_quantity') %> </dt>
+      <dd><%= @sku.available_quantity %></dd>
+      <dt><%= t('skus.douyin_quantity') %> </dt>
+      <dd><%= @sku.douyin_quantity %></dd>
+      <dt><%= t('skus.available_douyin_quantity') %> </dt>
+      <dd><%= @sku.available_douyin_quantity %></dd>
+      <dt><%= t('skus.description') %> </dt>
+      <dd><%= @sku.description %></dd>
+      <dt><%= t('skus.composition') %> </dt>
+      <dd><%= @sku.composition %></dd>
+    </dl>
+  </div>
+</div>
+
+<div class="container page-control">
+  <%= link_to t('back'), product_skus_path, class: 'back' %> |
+  <% if current_user.is_editor %>
+    <%= link_to raw("<i class='material-icons'>create</i><span>#{t('edit')}</span>"), edit_product_sku_path(@sku) %> |
+    <%= link_to raw("<i class='material-icons'>add_circle</i><span>#{t('skus.new')}</span>"), new_product_sku_path, data: { 'no-turbolink' => true} %>
+  <% end %>
+</div>

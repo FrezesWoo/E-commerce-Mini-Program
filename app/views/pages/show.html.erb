@@ -1,0 +1,26 @@
+<div class="page-header">
+  <h1> <%= t('pages.page_title') %> </h1>
+</div>
+
+<div class="container">
+  <div class='row'>
+    <dl>
+      <dt><%= t('pages.template') %></dt>
+      <dd><%= @page.template %></dd>
+      <dt><%= t('pages.name') %></dt>
+      <dd><%= @page.name %></dd>
+      <dt><%= t('pages.created_by') %></dt>
+      <dd><%= @page.created_by && @page.created_by.email %></dd>
+      <dt><%= t('pages.updated_by') %></dt>
+      <dd><%= @page.updated_by && @page.updated_by.email %></dd>
+    </dl>
+  </div>
+</div>
+
+<div class="container page-control">
+  <%= link_to t('back'), pages_path, class: 'back' %> |
+  <% if current_user.is_editor %>
+    <%= link_to raw("<i class='material-icons'>create</i><span>#{t('edit')}</span>"), edit_page_path(@page) %> |
+    <%= link_to raw("<i class='material-icons'>add_circle</i><span>#{t('new')}</span>"), new_page_path, data: { 'no-turbolink' => true} %>
+  <% end %>
+</div>

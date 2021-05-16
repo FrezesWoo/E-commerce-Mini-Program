@@ -1,0 +1,102 @@
+<div class="nested-fields row all-lots">
+
+  <div class="col-sm-4 form-group">
+    <%= f.label :template, t('page_blocks.blocks.template') %>
+    <%= f.select :template, Page::Block.templates.keys.to_a, {:prompt => 'Select a template'}, { :class => "form-control selectpicker select-block-template #{f.index}", :id => "exampleFormControlSelect1", :"data-style" => "btn btn-link" } %>
+  </div>
+
+  <div class="col-sm-4 form-group">
+    <%= f.label :status, t('page_blocks.blocks.status') %>
+    <%= f.select :status, Page::Block.statuses.keys.to_a, {}, { :class => "form-control selectpicker", :id => "exampleFormControlSelect1", :"data-style" => "btn btn-link" }  %>
+  </div>
+
+  <div class="col-md-4 form-group">
+    <%= f.label :title, t('page_blocks.blocks.title') %>
+    <%= f.text_field :title, class:"form-control" %>
+  </div>
+
+  <div class="col-md-6 form-group hidden-fields <%= all_classes(['tx_video'], f.object.template) %>">
+    <%= f.label :link, t('page_blocks.blocks.link') %>
+    <%= f.text_field :link, class:"form-control" -%>
+  </div>
+
+  <div class="col-sm-4 hidden-fields <%= all_classes(['content'], f.object.template) %>"></div>
+
+  <div class="col-sm-4 form-group hidden-fields">
+    <%= render 'layouts/simple_upload', form: f %>
+  </div>
+
+  <div class="col-sm-4 hidden-fields <%= all_classes(['slide_show'], f.object.template) %>">
+    <%= f.label :height, t('page_blocks.blocks.height') %>
+    <%= f.text_field :height, class:"form-control" -%>
+  </div>
+
+  <div class="col-sm-3 form-group hidden-fields <%= all_classes(['tx_video'], f.object.template) %>">
+    <%= f.label :link_width, t('page_blocks.blocks.link_width') %>
+    <%= f.number_field :link_width, class:"form-control" -%>
+  </div>
+
+  <div class="col-sm-3 form-group hidden-fields <%= all_classes(['tx_video'], f.object.template) %>">
+    <%= f.label :link_height, t('page_blocks.blocks.link_height') %>
+    <%= f.number_field :link_height, class:"form-control" -%>
+  </div>
+
+  <div class="col-sm-4 form-check hidden-fields <%= all_classes(['slide_show'], f.object.template) %>">
+    <label class="form-check-label">
+      <%= f.label :has_dots %>
+      <%= f.check_box :has_dots, class: 'form-check-input' %>
+      <span class="form-check-sign">
+          <span class="check"></span>
+      </span>
+    </label>
+  </div>
+
+  <div class="col-md-4 form-check hidden-fields <%= all_classes(['slide_show'], f.object.template) %>">
+    <label class="form-check-label">
+      <%= f.label :has_arrows %>
+      <%= f.check_box :has_arrows, class: 'form-check-input' %>
+      <span class="form-check-sign">
+          <span class="check"></span>
+      </span>
+    </label>
+  </div>
+
+  <div class="col-md-12 form-group hidden-fields <%= all_classes(['content'], f.object.template) %>">
+    <%= f.label :description, t('page_blocks.blocks.content') %>
+    <%= f.cktext_area :description, cols: 40,  ckeditor: { uiColor: '#AADC6E' } %>
+  </div>
+
+  <div class="col-md-12 hidden-fields <%= all_classes(['products'], f.object.template) %>">
+    <%= render 'products', form: f %>
+  </div>
+
+  <div class="col-md-12 hidden-fields <%= all_classes(['slide_show'], f.object.template) %>">
+    <%= render 'slide_show', form: f %>
+  </div>
+
+  <div class="col-md-12 hidden-fields <%= all_classes(['tabbar'], f.object.template) %>">
+    <%= render 'tabbars', form: f %>
+  </div>
+
+  <div class="col-md-6 form-group">
+    <%= f.label :ordering, t('page_blocks.blocks.ordering') %>
+    <%= f.number_field :ordering, class:"form-control" -%>
+  </div>
+
+  <div class="col-md-2 form-check hidden-fields <%= all_classes(['tabbar'], f.object.template) %>">
+    <label class="form-check-label">
+      <%= f.label :sticky %>
+      <%= f.check_box :sticky, class: 'form-check-input' %>
+      <span class="form-check-sign">
+          <span class="check"></span>
+      </span>
+    </label>
+  </div>
+
+  <%= render 'layouts/updated_by', form: f %>
+
+  <div class="col-md-4">
+    <%= link_to_remove_association raw("<i class='material-icons'>remove_circle</i><span>#{t('page_blocks.blocks.remove')}</span>"), f, class: 'remove-icone-attribute-field' %>
+  </div>
+
+</div>

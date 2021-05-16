@@ -1,0 +1,65 @@
+<div class="page-header">
+  <h1> <%= t('coupons.listing') %> </h1>
+  <% if current_user.is_editor %>
+    <div class="new-item">
+      <%= link_to raw("<i class='material-icons'>add_circle</i><span>#{t('coupons.new')}</span>"), new_coupon_path %>
+    </div>
+  <% end %>
+</div>
+
+<% if current_user.is_editor %>
+  <p class="lucky-draw-button">
+    <%= link_to t('coupons.download'), request.parameters.merge({:format => :csv}), {class:"btn btn-primary"} %>
+  </p>
+  <% if false %>
+    <%= form_tag("/coupons.csv",  method: "get") do %>
+      <div class="form-group">
+        <%= submit_tag(t("coupons.download"),:class => 'btn btn-primary') %>
+      </div>
+    <% end %>
+  <%end%>
+<% end %>
+
+<div class="table-responsive">
+  <table class="table table-fixed table-white table-hover">
+    <thead>
+    <th width="18%"> <%=  t('coupons.code') %> </th>
+    <th width="7%"> <%=  t('coupons.type') %> </th>
+    <th width="15%"> <%=  t('coupons.expiry_start_date') %> </th>
+    <th width="15%"> <%=  t('coupons.expiry_end_date') %> </th>
+    <th width="15%"> <%=  t('coupons.created_at') %> </th>
+    <th width="15%"> <%=  t('coupons.updated_at') %> </th>
+    <th width="5%"> <%= t('show')%> </th>
+    <% if current_user.is_editor %>
+      <th width="5%"> <%= t('edit')%> </th>
+      <th width="5%"> <%= t('delete')%> </th>
+    <% end %>
+    </thead>
+    <tbody>
+    <% @coupons.each do |coupon|%>
+      <tr>
+        <td width="18%"><%= coupon.code %> </td>
+        <td width="7%"><%= coupon.condition %> </td>
+        <td width="15%"><%= coupon.expiry_start_date %> </td>
+        <td width="15%"><%= coupon.expiry_end_date %> </td>
+        <td width="15%"><%= coupon.created_at %> </td>
+        <td width="15%"><%= coupon.updated_at %> </td>
+        <td width="5%"><i class="material-icons small">visibility</i><%= link_to t('show'), coupon %>
+        <% if current_user.is_editor  %>
+          <td width="5%"><i class="material-icons small">create</i><%= link_to t('edit'), edit_coupon_path(coupon) %></td>
+          <td width="5%"><i class="material-icons small">clear</i><%= link_to t('delete'), coupon, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+
+<div class="digg_pagination">
+  <div class="page_info">
+    <%= page_entries_info @coupons %>
+  </div>
+</div>
+<nav aria-label="Page navigation example" class="pagination-paginate">
+  <%= will_paginate(@coupons, :renderer => RemoteLinkPagination::LinkRenderer) %>
+</nav>

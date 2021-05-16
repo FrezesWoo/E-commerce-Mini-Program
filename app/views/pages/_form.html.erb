@@ -1,0 +1,54 @@
+<%= form_with(model: page, id: 'cust-form', class: 'row', local: true) do |form| %>
+  <% if page.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(page.errors.count, "error") %> prohibited this page_block from being saved:</h2>
+      <ul>
+      <% page.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group col-md-6">
+    <%= form.label :name, t('pages.name') %>
+    <%= form.text_field :name, class:"form-control" %>
+  </div>
+
+  <div class="form-group col-md-6">
+    <%= form.label :slug, t('pages.slug') %>
+    <%= form.text_field :slug, class:"form-control" %>
+  </div>
+
+  <div class="form-group col-md-12">
+    <%= render 'blocks', form: form %>
+  </div>
+
+  <%= render 'layouts/updated_by', form: form %>
+
+  <div class="submission">
+    <div class="actions">
+      <%= form.submit t('submit'), :class => 'btn btn-primary btn-round submit' %>
+      <%= link_to t('back'), pages_path, :class => 'btn btn-primary btn-warning cancel' %>
+      <% if !@page.new_record? %> <%= link_to raw('<i class="material-icons medium">restore_from_trash</i>'), @page, method: :delete, data: { confirm: 'Are you sure?' }, class: 'delete-article'  %> <% end %>
+    </div>
+  </div>
+<% end %>
+
+<%= javascript_tag do %>
+  $(document).ready(function() {
+    $('.select-block-template').each((idx, el) => {
+        var data = $(el).val();
+        $(el.parentElement.parentElement).children('.hidden-fields').hide();
+        $(el.parentElement.parentElement).children('.' + data).show();
+    })
+
+    $('.select-block-slide-link-type').each((idx, el) => {
+        var data = $(el).val();
+        $(el.parentElement.parentElement).children('.hidden-fields').hide();
+        if(data === '') return;
+        $(el.parentElement.parentElement).children('.' + data).show();
+        $(el.parentElement.parentElement).children('.link-type').hide();
+    })
+  })
+<% end %>

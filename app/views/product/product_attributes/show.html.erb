@@ -1,0 +1,24 @@
+<%= render 'layouts/product_navbar' %>
+
+<div class="page-header">
+  <h1> <%= t('product_attributes.page_title') %> </h1>
+</div>
+
+<div class="container">
+  <div class='row'>
+    <dl>
+      <dt><%= t('product_attributes.name') %> </dt>
+      <dd><%= @product_attribute.name %></dd>
+      <dt><%= t('product_attributes.value') %> </dt>
+      <dd><%= @product_attribute.product_product_attribute_category && @product_attribute.product_product_attribute_category.name %></dd>
+    </dl>
+  </div>
+</div>
+
+<div class="container page-control">
+  <%= link_to t('back'), product_product_attributes_path, class: 'back' %> |
+  <% if current_user.is_editor %>
+    <%= link_to raw("<i class='material-icons'>create</i><span>#{t('edit')}</span>"), edit_product_product_attribute_path(@product_attribute) %> |
+    <%= link_to raw("<i class='material-icons'>add_circle</i><span>#{t('new')}</span>"), new_product_product_attribute_path, data: { 'no-turbolink' => true} %>
+  <% end %>
+</div>

@@ -1,0 +1,8 @@
+en:
+  cities:
+    title: Cities
+    new: New City
+    name: City Name
+  areas:
+    title: Areas
+    name: Area Name

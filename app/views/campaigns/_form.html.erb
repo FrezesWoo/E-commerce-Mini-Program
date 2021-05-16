@@ -1,0 +1,48 @@
+<%= form_with(model: campaign, id: 'cust-form', class: 'row', local: true) do |form| %>
+  <% if campaign.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(campaign.errors.count, "error") %> prohibited this campaign from being saved:</h2>
+
+      <ul>
+      <% campaign.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group col-sm-6">
+    <%= form.label :name, t('campaigns.name') %>
+    <%= form.text_field :name, class:"form-control" %>
+  </div>
+
+  <div class="form-group col-sm-6 hidden-fields">
+    <%= form.label :page_type, t('campaigns.page_type') %>
+    <%= form.select :page_type, options_for_select(::Campaign.page_types.keys.to_a,:selected => 'campaign'), {}, { :class => "form-control selectpicker select-page-type", :id => "exampleFormControlSelect1", :"data-style" => "btn btn-link" } %>
+  </div>
+
+  <%= render 'blocks', form: form %>
+
+  <div class="submission">
+    <div class="actions">
+      <%= form.submit t('submit'), :class => 'btn btn-primary btn-round submit' %>
+      <%= link_to t('back'), campaigns_path, :class => 'btn btn-primary btn-warning cancel' %>
+    </div>
+  </div>
+<% end %>
+
+<%= javascript_tag do %>
+  $(document).ready(function() {
+    $('.select-campaign-block-template').each((idx, el) => {
+      var data = $(el).val();
+      $(el.parentElement.parentElement).children('.hidden-fields').hide();
+      $(el.parentElement.parentElement).children('.' + data).show();
+    })
+
+    $('.select-campaign-block-link').each((idx, el) => {
+      var data = $(el).val();
+      $(el.parentElement.parentElement).children('.hidden-field-products').hide();
+      $(el.parentElement.parentElement).children('.template' + data).show();
+    })
+  })
+<% end %>

@@ -1,0 +1,24 @@
+<div class="page-header">
+  <h1> <%= t('mp_links.page_title') %> </h1>
+</div>
+
+<div class="container">
+  <div class='row'>
+    <dl>
+      <dt><%= t('mp_links.name') %></dt>
+      <dd><%= @mp_link.name %></dd>
+      <dt><%= t('mp_links.path') %></dt>
+      <dd><%= @mp_link.path %></dd>
+      <dt><%= t('mp_links.param') %></dt>
+      <dd><%= @mp_link.param %></dd>
+    </dl>
+  </div>
+</div>
+
+<div class="container page-control">
+  <%= link_to t('back'), mp_links_path, class: 'back' %> |
+  <% if current_user.is_editor %>
+    <%= link_to raw("<i class='material-icons'>create</i><span>#{t('edit')}</span>"), edit_mp_link_path(@mp_link) %> |
+    <%= link_to raw("<i class='material-icons'>add_circle</i><span>#{t('new')}</span>"), new_mp_link_path, data: { 'no-turbolink' => true} %>
+  <% end %>
+</div>

@@ -1,0 +1,11 @@
+<div class="nested-fields row single-block">
+
+  <div class="col-md-4">
+    <%= f.label :product_sku_ids, t('product_package.choose_product_sku') %>
+    <%= f.select :product_sku_id, (@product_skus[f.options[:parent_builder].object.product_id.to_s] || {}).map { |i| [i[:name], i[:id]] }, {prompt: 'Select Product Sku'}, {:class => "form-control selectpicker product-skus-selection", :id => "exampleFormControlSelect1", :"data-style" => "btn btn-link" } %>
+  </div>
+
+  <div class="col-md-4">
+    <%= link_to_remove_association raw("<i class='material-icons'>remove_circle</i><span>#{t('product_package.remove')}</span>"), f, class: 'remove-icone-attribute-field' %>
+  </div>
+</div>

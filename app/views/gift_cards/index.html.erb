@@ -1,0 +1,49 @@
+<div class="page-header">
+  <h1>  <%=  t('gift_cards.listing') %> </h1>
+  <% if current_user.is_editor && @gift_cards.count === 0 %>
+    <div class="new-item">
+      <%= link_to raw("<i class='material-icons'>add_circle</i><span>#{t('new')}</span>"), new_gift_card_path, data: { 'no-turbolink' => true} %>
+    </div>
+  <% end %>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-fixed table-white table-hover">
+    <thead>
+      <tr>
+        <th width="25%"><%= t('gift_cards.name') %></th>
+        <th width="25%"><%= t('gift_cards.type') %></th>
+        <th width="25%"><%= t('gift_cards.size') %></th>
+        <th width="7.6%"> <%= t('show')%> </th>
+        <% if current_user.is_editor %>
+          <th width="7.6%"> <%= t('edit')%> </th>
+          <th width="7.6%"> <%= t('delete')%> </th>
+        <% end %>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @gift_cards.each do |gift_card| %>
+        <tr>
+          <td width="25%"><%= gift_card.image_file_name %> </td>
+          <td width="25%"><%= gift_card.image_content_type %> </td>
+          <td width="25%"><%= gift_card.image_file_size %> </td>
+          <td width="7.6%"><i class="material-icons small">visibility</i><%= link_to 'Show', gift_card %></td>
+          <% if current_user.is_editor  %>
+            <td width="7.6%"><i class="material-icons small">create</i><%= link_to 'Edit', edit_gift_card_path(gift_card) %></td>
+            <td width="7.6%"><i class="material-icons small">clear</i><%= link_to 'Destroy', gift_card, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<div class="digg_pagination">
+  <div class="page_info">
+    <%= page_entries_info @gift_cards %>
+  </div>
+</div>
+<nav aria-label="Page navigation example">
+  <%= will_paginate(@gift_cards, :renderer => RemoteLinkPagination::LinkRenderer) %>
+</nav>

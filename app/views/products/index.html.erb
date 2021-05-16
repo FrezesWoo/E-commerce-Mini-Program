@@ -1,0 +1,62 @@
+<%= render 'layouts/product_navbar' %>
+
+<div class="page-header">
+  <h1>  <%=  t('products.listing') %> </h1>
+  <% if current_user.is_editor %>
+    <div class="new-item">
+      <%= link_to raw("<i class='material-icons'>add_circle</i><span>#{t('new')}</span>"), new_product_path %>
+    </div>
+  <% end %>
+</div>
+
+<div class="container">
+  <%= form_tag("/products", class: 'row',  method: "get") do %>
+    <div class="form-group col-sm-9">
+      <%= search_field_tag(:name, params[:name], placeholder: "请输入名字...", class:"form-control")%>
+    </div>
+    <div class="form-group col-sm-3">
+      <%= submit_tag(t('search'),:class => 'btn btn-primary') %>
+    </div>
+  <% end %>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-fixed table-white table-hover">
+    <thead>
+      <th width="15%"> <%=  t('products.id') %> </th>
+      <th width="20%"> <%=  t('products.name') %> </th>
+      <th width="20%"> <%=  t('products.created_at') %> </th>
+      <th width="20%"> <%=  t('products.updated_at') %> </th>
+      <th width="7.6%"> <%= t('show')%> </th>
+      <% if current_user.is_editor %>
+        <th width="7.6%"> <%= t('edit')%> </th>
+        <th width="7.6%"> <%= t('delete')%> </th>
+      <% end %>
+    </thead>
+    <tbody>
+      <% @products.each do |product|%>
+        <tr>
+          <td width="15%"><%= product.id %> </td>
+          <td width="20%"><%= product.name %> </td>
+          <td width="20%"><%= product.created_at %> </td>
+          <td width="20%"><%= product.updated_at %> </td>
+          <td width="7.6%"><i class="material-icons small">visibility</i><%= link_to t('show'), product %></td>
+          <% if current_user.is_editor  %>
+            <td width="7.6%"><i class="material-icons small">create</i><%= link_to t('edit'), edit_product_path(product) %></td>
+            <td width="7.6%"><i class="material-icons small">clear</i><%= link_to t('delete'), product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+
+<div class="digg_pagination">
+  <div class="page_info">
+    <%= page_entries_info @products %>
+  </div>
+</div>
+<nav aria-label="Page navigation example" class="pagination-paginate">
+  <%= will_paginate(@products, :renderer => RemoteLinkPagination::LinkRenderer) %>
+</nav>

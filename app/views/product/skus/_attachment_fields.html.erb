@@ -1,0 +1,69 @@
+<div class="nested-fields row">
+
+  <div class="attachment-attribute-label col-sm-4">
+    <%= f.label :file, '<i class="material-icons" style="font-size:40px;color:#9c27b0;">cloud_download</i>'.html_safe %>
+    <%= f.file_field :file, class: 'uploaded-file' %>
+  </div>
+
+  <div class="attachment-attribute-label col-sm-4">
+    <% if !f.object.file.url.include?'missing' %>
+      <%= image_tag f.object.file.url(:thumb) %>
+    <% end %>
+  </div>
+
+  <script id="template-upload" type="text/x-tmpl">
+    <div class="upload">
+      {%=o.name%}
+      <div class="progress"><div class="bar" style="width: 0%"></div></div>
+    </div>
+  </script>
+
+  <div class="col-sm-4">
+    <%= f.label :weight, t('attachements.weight') %>
+    <%= f.number_field :weight, class:"form-control" %>
+  </div>
+
+  <div class="col-sm-4 form-check">
+    <label class="form-check-label">
+      <%= f.label :display %>
+      <%= f.check_box :display, class: 'form-check-input' -%>
+      <span class="form-check-sign">
+          <span class="check"></span>
+      </span>
+    </label>
+  </div>
+
+  <%= render 'layouts/updated_by', form: f %>
+
+  <div class="col-sm-12">
+    <%= link_to_remove_association raw("<i class='material-icons'>remove_circle</i><span>#{t('attachements.remove')}</span>"), f, class: 'remove-icone-attribute-field' %>
+  </div>
+
+</div>
+
+<%= javascript_tag do %>
+  $('.uploaded-file').fileupload({
+      dataType: "script",
+      add: function(e, data) {
+        var file, types;
+        types = /(\.|\/)(gif|jpe?g|png)$/i;
+        file = data.files[0];
+        e.stopPropagation();
+        if (types.test(file.type) || types.test(file.name)) {
+          data.context = $(tmpl("template-upload", file));
+          $('.uploaded-file').append(data.context);
+          debugger;
+          data.submit();
+        } else {
+          return alert(file.name + " is not a gif, jpeg, or png image file");
+        }
+      },
+      progress: function(e, data) {
+        var progress;
+        if (data.context) {
+          progress = parseInt(data.loaded / data.total * 100, 10);
+          return data.context.find('.bar').css('width', progress + '%');
+        }
+      }
+    });
+<% end %>

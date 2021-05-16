@@ -1,0 +1,46 @@
+<div class="nested-fields row all-lots">
+
+  <div class="col-md-4">
+    <%= f.label :product_type, t('page_blocks.blocks.product_type') %>
+    <%= f.select :product_type, Page::Block::Product.product_types.keys.to_a, {}, { :class => "form-control selectpicker select-block-product-type #{f.index}", :id => "exampleFormControlSelect1", :"data-style" => "btn btn-link" } %>
+  </div>
+
+  <div class="col-md-4">
+    <%= f.label :product_package_id, t('page_blocks.blocks.products.pick_package') %>
+    <%= f.collection_select(:product_package_id, Product::Package.all, :id, :name, {:prompt => ''}, {:class=>'form-control chosen-select', :dataStyle => "btn btn-link", :id => "exampleFormControlSelect1"} ) %>
+  </div>
+
+  <div class="col-md-4">
+    <%= f.label :ordering, t('page_blocks.blocks.products.ordering')  %>
+    <%= f.number_field :ordering, class: "form-control" %>
+  </div>
+
+  <%= render 'layouts/updated_by', form: f %>
+
+  <div class="col-md-4">
+    <%= link_to_remove_association raw("<i class='material-icons'>remove_circle</i><span>#{t('page_blocks.blocks.products.remove')}</span>"), f, class: 'remove-attachement-attribute-field' %>
+  </div>
+
+</div>
+
+<%= javascript_tag do %>
+  $('.chosen-select').chosen({
+    allow_single_deselect: false,
+    no_results_text: 'No results matched',
+    width: '100%'
+  });
+
+  $(document).ready(function() {
+    $('.select-block-product-type').each((idx, el) => {
+        let data = $(el).find("option:selected").val();
+        $(el).parent().parent().children(".hidden-fields").hide().siblings('.' + data).show();
+    })
+
+    $('.select-block-product-type').bind('change', function() {
+      $(this).parent().parent().children('.hidden-fields').hide().find("select").find(".product-type").remove();
+      $(this).parent().parent().children('.hidden-fields').hide()
+        .find("select").prepend("<option class='product-type' selected='selected' value=''></option>")
+        .parent().siblings('.' + $(this).val()).show().find(".product-type").remove();
+    })
+  })
+<% end %>

@@ -1,0 +1,24 @@
+<div class="page-header">
+  <h1> <%= t('lucky_draws.title') %> </h1>
+</div>
+
+<div class="container">
+  <div class='row'>
+    <dl>
+      <dt><%= t('lucky_draws.name') %></dt>
+      <dd><%= @lucky_draw_prize.name %></dd>
+      <dt><%= t('lucky_draws.package') %></dt>
+      <dd><%= @lucky_draw_prize.product_package.name %></dd>
+      <dt><%= t('lucky_draws.quantity') %></dt>
+      <dd><%= @lucky_draw_prize.quantity %></dd>
+    </dl>
+  </div>
+</div>
+
+<div class="container page-control">
+  <%= link_to t('back'), lucky_draw_prizes_path, class: 'back' %> |
+  <% if current_user.is_editor %>
+    <%= link_to raw("<i class='material-icons'>create</i><span>#{t('edit')}</span>"), edit_lucky_draw_prize_path(@lucky_draw_prize) %> |
+    <%= link_to raw("<i class='material-icons'>add_circle</i><span>#{t('new')}</span>"), new_lucky_draw_prize_path, data: { 'no-turbolink' => true} %>
+  <% end %>
+</div>

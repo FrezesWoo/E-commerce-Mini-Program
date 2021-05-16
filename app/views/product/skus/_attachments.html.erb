@@ -1,0 +1,28 @@
+<div id="accordion2" role="tablist">
+  <div class="card card-collapse">
+    <div class="card-header" role="tab" id="headingOne">
+      <h5 class="mb-0">
+        <a data-toggle="collapse" href="#collapseAttachment" aria-expanded="false" aria-controls="collapseAttachment">
+          <i class="material-icons">photo_library</i> <%= t('attachments.title') %>
+          <i class="material-icons">keyboard_arrow_down</i>
+        </a>
+      </h5>
+    </div>
+
+    <div id="collapseAttachment" class="collapse show" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion2">
+      <div class="card-body">
+        <div class='blocks'>
+          <div id="attachements">
+            <%= form.fields_for :attachments do |attachment| %>
+              <%= render 'attachment_fields', f: attachment %>
+            <% end %>
+
+            <div class="links add-new-icone">
+              <%= link_to_add_association raw("<i class='material-icons'>add_circle</i><span>#{t('attachements.add')}</span>"), form, :attachments %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

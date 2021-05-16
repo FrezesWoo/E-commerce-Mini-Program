@@ -1,0 +1,24 @@
+<%= render 'layouts/location_navbar' %>
+
+<div class="page-header">
+  <h1> <%= t('country_province.page_title') %> </h1>
+</div>
+
+<div class="container">
+  <div class='row'>
+    <dl>
+      <dt><%= t('country_province.country') %></dt>
+      <dd><%= @country_province.country && @country_province.country.name %></dd>
+      <dt><%= t('country_province.name') %></dt>
+      <dd><%= @country_province.name %></dd>
+    </dl>
+  </div>
+</div>
+
+<div class="container page-control">
+  <%= link_to t('back'), country_provinces_path, class: 'back' %> |
+  <% if current_user.is_editor %>
+    <%= link_to raw("<i class='material-icons'>create</i><span>#{t('edit')}</span>"), edit_country_province_path(@country_province) %> |
+    <%= link_to raw("<i class='material-icons'>add_circle</i><span>#{t('new')}</span>"), new_country_province_path, data: { 'no-turbolink' => true} %>
+  <% end %>
+</div>

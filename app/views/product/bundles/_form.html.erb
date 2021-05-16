@@ -1,0 +1,98 @@
+<%= form_with(model: product_bundle, id: 'cust-form',  local: true, class: 'row') do |form| %>
+  <% if product_bundle.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(product_bundle.errors.count, "error") %> prohibited this product_bundle from being saved:</h2>
+
+      <ul>
+      <% product_bundle.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group col-sm-6">
+    <%= form.label :name, t('product_bundle.name') %>
+    <%= form.text_field :name, class:"form-control" %>
+  </div>
+
+  <div class="form-group col-sm-4">
+    <%= form.label :ordering, t('product_bundle.ordering') %>
+    <%= form.number_field :ordering, class:"form-control" %>
+  </div>
+
+  <div class="form-check col-sm-2">
+    <label class="form-check-label">
+      <%= form.label :publish %>
+      <%= form.check_box :status, class: 'form-check-input' %>
+      <span class="form-check-sign">
+            <span class="check"></span>
+        </span>
+    </label>
+  </div>
+
+  <div class="form-group col-sm-12">
+    <%= form.label :condition, t('product_bundle.pick_condition') %>
+    <span style="color:red;">1.price: 满额赠礼 2.product: 多选一 3.gift: 新客礼 4.giveaway: 随单礼 5.freebie: 任购礼 6.skugift: 单品买赠</span>
+    <%= form.select :condition, Product::Bundle.conditions.keys.to_a, {}, { :class => "form-control selectpicker select-condition", :id => "exampleFormControlSelect1", :"data-style" => "btn btn-link" }  -%>
+  </div>
+
+<!--  <div class="form-group col-sm-12 hidden-fields <%#= all_classes(['price'], form.object.condition) %>">-->
+    <%#= form.label :price, t('product_bundle.price')  %>
+    <%#= form.text_field :price, class:"form-control" %>
+<!--  </div>-->
+
+  <div class="form-group  col-sm-12 hidden-fields <%= all_classes(['price'], form.object.condition) %>">
+    <%= form.label :price_condition, t('product_bundle.price_condition')  %>
+    <%= form.number_field :price_condition, class:"form-control" %>
+  </div>
+
+  <div class="form-group  col-sm-12 hidden-fields <%= all_classes(['product', 'giveaway', 'freebie'], form.object.condition) %>">
+    <%= form.label :quantity, t('product_bundle.quantity')  %>
+    <%= form.number_field :quantity, min: 1, class:"form-control" %>
+  </div>
+
+<!--  <div class="form-group  col-sm-12 hidden-fields <%#= all_classes(['product'], form.object.condition) %>">-->
+<!--    <div class="align-labels">-->
+<!--      <i class='material-icons'>spa</i><%#= form.label :product_id, t('product_bundle.choose_product') %>-->
+<!--    </div>-->
+    <%#= form.collection_select(:product_id, Product.all, :id, :name, {}, { :class=>'form-control selectpicker chosen-select', :dataStyle => "btn btn-link", :id => "exampleFormControlSelect1" } ) %>
+<!--  </div>-->
+
+  <div class="form-group col-sm-12">
+    <%= render 'product_skus', form: form %>
+  </div>
+
+  <div class="form-group col-sm-12 hidden-fields <%= all_classes(['price', 'skugift'], form.object.condition) %>">
+    <%= render 'gift_skus', form: form %>
+  </div>
+
+  <%= render 'layouts/updated_by', form: form %>
+
+  <div class="submission">
+    <div class="actions">
+      <%= form.submit t('submit'), :class => 'btn btn-primary btn-round submit' %>
+      <%= link_to t('back'), product_bundles_path, :class => 'btn btn-primary btn-warning cancel' %>
+      <% if !@product_bundle.new_record? %> <%= link_to raw('<i class="material-icons medium">restore_from_trash</i>'), @product_bundle, method: :delete, data: { confirm: 'Are you sure?' }, class: 'delete-article'  %> <% end %>
+    </div>
+  </div>
+<% end %>
+
+<%= javascript_tag do %>
+  $('.chosen-select').chosen({
+    allow_single_deselect: false,
+    no_results_text: 'No results matched',
+    width: '100%'
+  });
+
+  $(document).ready(function() {
+      $('.select-condition').each((idx, el) => {
+        let data = $(el).find("option:selected").val();
+        $(el).parent().parent().children(".hidden-fields").hide().siblings('.' + data).show();
+      })
+
+      $('.select-condition').bind('change', function() {
+          $(this).parent().parent().children('.hidden-fields').hide().siblings('.' + $(this).val()).show();
+      })
+  })
+<% end %>

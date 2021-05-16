@@ -1,0 +1,81 @@
+<div class="table-responsive">
+  <table class="table table-fixed table-white table-hover">
+    <thead>
+      <th width="25%"> <%=  t('customer.customer_total_num') %> </th>
+      <th width="25%"> <%=  t('customer.customer_order_num') %> </th>
+      <th width="25%"> <%=  t('customer.customer_wechat_num') %> </th>
+      <th width="25%"> <%=  t('customer.customer_phone_num') %> </th>
+    </thead>
+    <tbody>
+      <tr>
+        <td width="25%"><%= @statistics['total'] %></td>
+        <td width="25%"><%= @statistics['order'] %></td>
+        <td width="25%"><%= @statistics['wechat'] %></td>
+        <td width="25%"><%= @statistics['phone'] %></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="page-header">
+  <h1>  <%= t('customers.page_title') %> </h1>
+  <% if current_user.is_editor %>
+    <div class="new-item">
+      <%= link_to raw("<i class='material-icons'>add_circle</i><span>#{t('new')}</span>"), new_customer_path, data: { 'no-turbolink' => true} %>
+    </div>
+  <% end %>
+</div>
+
+<% if current_user.is_editor %>
+  <p class="lucky-draw-button">
+    <%= link_to t('customers.download'), request.parameters.merge({:format => :csv}), {class:"btn btn-primary"} %>
+  </p>
+  <% if false %>
+    <%= form_tag("/customers.csv",  method: "get") do %>
+      <div class="form-group">
+        <%= submit_tag(t("customers.download"),:class => 'btn btn-primary') %>
+      </div>
+    <% end %>
+  <%end%>
+<% end %>
+
+<div class="table-responsive">
+  <table class="table table-fixed table-white table-hover">
+    <thead>
+      <th width="15%"> <%=  t('customers.name') %> </th>
+      <th width="25%"> <%=  t('customers.open_id') %> </th>
+      <th width="25%"> <%=  t('customers.union_id') %> </th>
+      <th width="15%"> <%=  t('customers.phone') %> </th>
+      <th width="6.6%"> <%= t('show')%> </th>
+      <% if current_user.is_editor %>
+        <th width="6.6%"> <%= t('edit')%> </th>
+        <th width="6.6%"> <%= t('delete')%> </th>
+      <% end %>
+    </thead>
+    <tbody>
+      <% @customers.each do |customer|%>
+        <tr>
+          <td width="15%"><%= customer.name %> </td>
+          <td width="25%"><%= customer.open_id %> </td>
+          <td width="25%"><%= customer.union_id %> </td>
+          <td width="15%"><%= customer.phone %> </td>
+          <td width="6.6%"><i class="material-icons small">visibility</i><%= link_to t('show'), customer %></td>
+          <% if current_user.is_editor  %>
+            <td width="6.6%"><i class="material-icons small">create</i><%= link_to t('edit'), edit_customer_path(customer) %></td>
+            <td width="6.6%"><i class="material-icons small">clear</i><%= link_to t('delete'), customer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+
+<div class="digg_pagination">
+  <div class="page_info">
+    <%= page_entries_info @customers %>
+  </div>
+</div>
+<nav aria-label="Page navigation example">
+  <%= will_paginate(@customers, :renderer => RemoteLinkPagination::LinkRenderer) %>
+</nav>

@@ -1,0 +1,32 @@
+en:
+  products:
+    page_title: Product
+    title: Product Title
+    sub_title: Sub Titre
+    description: Product Description
+    product_category: Product category
+    product_sub_category: Product Sub-category
+    product_details: Product Detail
+    composition: Product Composition
+    choose_product_sizes: Select product size
+    choose_product_colors: Select Product Color
+    price: Price
+    position: Product Position
+    icons:
+      title: Icone USP
+      choose_icon: Select USP Icone
+      ordering: Position
+      add: Add an Icon
+      remove: Remove the Icon
+    attachements:
+      title: Picture
+      alt: Alt tag
+      weight: position
+      color: Color
+      is_preview: Preview
+      add: Add a picture
+      remove: Remove a picture
+    new: New
+    category: Product category
+    attachments: Attachments
+    import_wechat_product: Import Wechat Product

@@ -1,0 +1,8 @@
+zh-CN:
+  cities:
+    title: 城市
+    new: 添加一个城市
+    name: 城市名称
+  areas:
+    title: 区
+    name: 区名称

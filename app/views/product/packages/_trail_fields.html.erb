@@ -1,0 +1,25 @@
+<div class="nested-fields row trial_block">
+
+  <div class="form-group col-md-4">
+    <%= f.label :trial_start_date, t('product_packages.trial.trial_start_date') %>
+    <%= f.datetime_select :trial_start_date, class:"form-control" %>
+  </div>
+
+  <div class="form-group col-md-4">
+    <%= f.label :trial_end_date, t('product_packages.trial.trial_end_date') %>
+    <%= f.datetime_select :trial_end_date, class:"form-control" %>
+  </div>
+
+  <div class="col-md-2 trail_remove">
+    <%= link_to_remove_association raw("<i class='material-icons'>remove_circle</i><span>#{t('product_packages.trial.remove')}</span>"), f, class: 'remove-icone-attribute-field' %>
+  </div>
+
+</div>
+
+<%= javascript_tag do %>
+  $(document).ready(function() {
+    $('.trail_remove').bind('click', function() {
+        $(this).parent().parent().find('.trail_add_new').show()
+    })
+  })
+<% end %>

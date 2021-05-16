@@ -1,0 +1,10 @@
+en:
+  campaigns:
+    page_title: Campaign Page
+    title: Campaign
+    blocks:
+      template: Template
+      add: Add a block
+      remove: Remove the block
+      height: Height of the clickable Area
+      width: Width of the clickable Area

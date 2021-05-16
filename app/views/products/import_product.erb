@@ -1,0 +1,15 @@
+<%= render 'layouts/product_navbar' %>
+
+<div class="page-header">
+  <h1><%= t('products.import wechat_products') %></h1>
+</div>
+
+<div>
+  <%= form_tag '/products/import', multipart: true do  %>
+    <div style="margin: 20px 0;">
+      <%= file_field_tag :file, :accept=>".csv" %>
+      <%= link_to t('products.download_wechat_products_template'), '/products_template.csv' %>
+    </div>
+    <%= submit_tag "Import wechat products csv file", :class => 'btn btn-primary' %>
+  <% end %>
+</div>

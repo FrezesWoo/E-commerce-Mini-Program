@@ -1,0 +1,69 @@
+<div class="page-header">
+  <h1>  <%=  t('order.listing') %> </h1>
+</div>
+
+<div class="container">
+  <%= form_tag("/orders/source/#{params[:source]}", class: 'row', method: "get") do %>
+    <div class="form-group col-sm-4">
+      <%= search_field_tag(:order_number, params[:order_number], placeholder: "订单号", class:"form-control")%>
+    </div>
+    <div class="form-group col-sm-6">
+      <%= select_tag(:status, options_for_select(Order::statuses, params[:status]), prompt: "订单状态", class:"form-control chosen-select") %>
+    </div>
+    <div class="form-group col-sm-2">
+      <%= submit_tag(t('search'),:class => 'btn btn-primary') %>
+    </div>
+  <% end %>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-fixed table-white table-hover">
+    <thead>
+      <th width="15%"> <%=  t('order.order_number') %> </th>
+      <th width="7%"> <%=  t('order.type') %> </th>
+      <th width="10%">  <%=  t('order.customer') %> </th>
+      <th width="10%"> <%=  t('order.mobile') %> </th>
+      <th width="10%"> <%=  t('order.amount') %> </th>
+      <th width="20%"> <%=  t('order.address') %> </th>
+      <th width="13%"> <%=  t('order.created_at') %> </th>
+      <th width="5%"> <%=  t('order.status') %> </th>
+      <% if current_user.is_editor %>
+        <th width="10%"> <%=  t('order.sync')%> </th>
+      <% end %>
+    </thead>
+    <tbody>
+    <% @orders.each do |order| %>
+      <tr>
+        <td width="15%"><%= order.order_number %></td>
+        <td width="7%"><%= order.need_trial == true ? '付邮试用' : '正品订单' %></td>
+        <td width="10%"><%= order.customer_name%></td>
+        <td width="10%"><%= order.mobile %></td>
+        <td width="10%"><%= order.total_price + (order.get_delivery || 0) %></td>
+        <td width="20%"><%= order.order_address %></td>
+        <td width="13%"><%= order.created_at %></td>
+        <td width="5%"><%= order.status %></td>
+        <% if current_user.is_editor && order.is_synced === false %>
+          <td width="10%"><i class="material-icons">autorenew</i><%= link_to t('sync'), sync_order_path(order), method: :get %></td>
+        <% end %>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+
+<div class="digg_pagination">
+  <div class="page_info">
+    <%= page_entries_info @orders %>
+  </div>
+</div>
+<nav aria-label="Page navigation example">
+  <%= will_paginate(@orders, :renderer => RemoteLinkPagination::LinkRenderer) %>
+</nav>
+
+<%= javascript_tag do %>
+  $('.chosen-select').chosen({
+    allow_single_deselect: true,
+    no_results_text: 'No results matched',
+    width: '100%'
+  });
+<% end %>

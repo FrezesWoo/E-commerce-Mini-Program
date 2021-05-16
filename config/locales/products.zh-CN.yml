@@ -1,0 +1,34 @@
+zh-CN:
+  products:
+    page_title: 产品
+    title: 产品标题
+    sub_title: 商品季节
+    description: 商品描述
+    product_category: 商品分类页面
+    product_sub_category: 商品系列
+    product_details: 商品特征说明
+    composition: 商品材质
+    choose_product_sizes: 选择商品尺码
+    choose_product_colors: 选择商品颜色
+    price: 商品标签价格
+    position: 商品分类页面位置排序
+    icons:
+      title: USP标签
+      choose_icon: 选择USP 标签
+      ordering: 排序
+      add: 添加标签
+      remove: 移除标签
+    attachements:
+      title: 照片
+      alt: 商品图ALT 标签
+      weight: 商品图排序
+      color: 选择商品图颜色
+      is_preview: 预览图
+      add: 添加商品图
+      remove: 移除商品图
+    new: 加一个产品
+    category: 产品分类
+    attachments: 照片
+    is_disposable: 单次使用
+    import_wechat_product: 微信圈子物品导入
+    download_wechat_products_template: 下载物品模板

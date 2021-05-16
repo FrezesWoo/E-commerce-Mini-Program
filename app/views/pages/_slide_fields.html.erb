@@ -1,0 +1,65 @@
+<div class="nested-fields row all-lots">
+
+  <div class="col-sm-4">
+    <%= f.label :title, t('pages.blocks.slide_show.title') %>
+    <%= f.text_field :title, class:"form-control" %>
+  </div>
+
+  <div class="col-sm-4">
+    <%= f.label :link_type, t('pages.blocks.slides.link_type') %>
+    <%= f.select :link_type, ::Page::Block::Slide.link_types.keys.to_a, {:prompt => 'Select a link type'}, { :class => "form-control selectpicker select-block-slide-link-type #{f.index}", :id => "exampleFormControlSelect1", :"data-style" => "btn btn-link" } %>
+  </div>
+
+  <div class="col-md-4 hidden-fields <%= all_classes(['商品页'], f.object.link_type) %>">
+    <%= f.label :product_package_id, t('page_blocks.blocks.slides.pick_package') %>
+    <%= f.collection_select(:product_package_id, Product::Package.all, :id, :name, {}, {:class=>'form-control chosen-select selectpicker', :dataStyle => "btn btn-link", :id => "exampleFormControlSelect1"} ) %>
+  </div>
+
+  <div class="col-sm-4 hidden-fields <%= all_classes(['小程序页面'], f.object.link_type) %>">
+    <%= f.label :mp_link_id, t('pages.blocks.slides.select_mp_link') %>
+    <%= f.collection_select(:mp_link_id, MpLink.all, :id, :name, {}, {:class=>'form-control selectpicker', :dataStyle => "btn btn-link", :id => "exampleFormControlSelect1"} ) %>
+  </div>
+
+  <div class="col-md-4 hidden-fields <%= all_classes(['自定义页面'], f.object.link_type) %>">
+    <%= f.label :campaign_id, t('pages.blocks.slides.pick_page') %>
+    <%= f.collection_select(:page_id, Page.all, :id, :name, {}, {:class=>'form-control chosen-select selectpicker', :dataStyle => "btn btn-link", :id => "exampleFormControlSelect1"} ) %>
+  </div>
+
+  <div class="col-md-4 hidden-fields <%= all_classes(['其他小程序'], f.object.link_type) %>">
+    <%= f.label :mp_name, t('pages.blocks.slides.mp_name') %>
+    <%= f.text_field :mp_name, class:"form-control" %>
+  </div>
+
+  <div class="col-md-4 link-type"></div>
+
+  <!--  <div class="col-md-12">-->
+    <%#= f.label :description, t('pages.blocks.slide_show.content') %>
+    <%#= f.cktext_area :description, cols: 30,  ckeditor: { uiColor: '#AADC6E' } %>
+<!--  </div>-->
+
+  <div class="col-sm-4"></div>
+  <div class="col-sm-4">
+    <%= render 'layouts/simple_upload', form: f %>
+  </div>
+  <div class="col-sm-4"></div>
+
+  <div class="col-sm-4">
+    <%= f.label :ordering, t('pages.blocks.slides.ordering')  %>
+    <%= f.number_field :ordering, class:"form-control" %>
+  </div>
+
+  <%= render 'layouts/updated_by', form: f %>
+
+  <div class="col-sm-4">
+    <%= link_to_remove_association raw("<i class='material-icons'>remove_circle</i><span>#{t('pages.blocks.slides.remove')}</span>"), f, class: 'remove-attachement-attribute-field' %>
+  </div>
+
+</div>
+
+<%= javascript_tag do %>
+  $('.chosen-select').chosen({
+    allow_single_deselect: false,
+    no_results_text: 'No results matched',
+    width: '100%'
+  });
+<% end %>

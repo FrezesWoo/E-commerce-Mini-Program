@@ -1,0 +1,32 @@
+<div class="page-header">
+  <h1> <%= t('product_bundles.page_title') %> </h1>
+</div>
+
+<div class="container">
+  <div class='row'>
+    <dl>
+      <dt><%= t('product_bundles.name') %></dt>
+      <dd><%= @product_bundle.name %></dd>
+      <dt><%= t('product_bundles.price') %></dt>
+      <dd><%= @product_bundle.price %></dd>
+      <dt><%= t('product_bundles.condition') %></dt>
+      <dd><%= @product_bundle.condition %></dd>
+      <dt><%= t('product_bundles.product') %></dt>
+      <dd><%= @product_bundle.product && @product_bundle.product.name %></dd>
+      <dt><%= t('product_bundles.price_condition') %></dt>
+      <dd><%= @product_bundle.price_condition %></dd>
+      <dt><%= t('product_bundles.created_by') %></dt>
+      <dd><%= @product_bundle.created_by && @product_bundle.created_by.email %></dd>
+      <dt><%= t('product_bundles.updated_by') %></dt>
+      <dd><%= @product_bundle.updated_by && @product_bundle.updated_by.email %></dd>
+    </dl>
+  </div>
+</div>
+
+<div class="container page-control">
+  <%= link_to t('back'), product_bundles_path, class: 'back' %> |
+  <% if current_user.is_editor %>
+    <%= link_to raw("<i class='material-icons'>create</i><span>#{t('edit')}</span>"), edit_product_bundle_path(@product_bundle) %> |
+    <%= link_to raw("<i class='material-icons'>add_circle</i><span>#{t('new')}</span>"), new_product_bundle_path, data: { 'no-turbolink' => true} %>
+  <% end %>
+</div>
